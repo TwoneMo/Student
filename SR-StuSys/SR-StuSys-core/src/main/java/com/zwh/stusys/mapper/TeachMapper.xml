@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwh.stusys.mapper.TeachMapper">
+  <resultMap id="BaseResultMap" type="com.zwh.stusys.entity.Teach">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="classid" jdbcType="VARCHAR" property="classid" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="courseid" jdbcType="VARCHAR" property="courseid" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.zwh.stusys.entity.Teach">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="classid" jdbcType="VARCHAR" property="classid" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="courseid" jdbcType="VARCHAR" property="courseid" />
+    <association property="myclass" javaType="com.zwh.stusys.entity.Class" column="classid" select="com.zwh.stusys.mapper.ClassMapper.selectByTrueKey"></association>
+    <association property="course" javaType="com.zwh.stusys.entity.Course" column="courseid" select="com.zwh.stusys.mapper.CourseMapper.selectByTrueKey"></association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, classid, tid, courseid
+  </sql>
+  <select id="selectByExample" parameterType="com.zwh.stusys.entity.TeachExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teach
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from teach
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zwh.stusys.entity.TeachExample">
+    delete from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zwh.stusys.entity.Teach">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into teach (classid, tid, courseid
+      )
+    values (#{classid,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zwh.stusys.entity.Teach">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into teach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="courseid != null">
+        courseid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zwh.stusys.entity.TeachExample" resultType="java.lang.Long">
+    select count(*) from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="searchAllTeachPage" parameterType="map" resultMap="BaseResultMap2">
+  select
+  <include refid="Base_Column_List" />
+  from teach
+  <where>
+  	<if test="teach!=null and teach.courseid!=null and teach.courseid!=''">
+  		courseid = #{teach.courseid}
+  	</if>
+  	<if test="teach!=null and teach.classid!=null and teach.classid!=''">
+  		classid = #{teach.classid}
+  	</if>
+  	<if test="teach!=null and teach.tid!=null and teach.tid!=''">
+  		tid = #{teach.tid}
+  	</if>
+  </where>
+  limit #{start},#{length}
+  </select>
+  
+  <select id="searchCount" parameterType="com.zwh.stusys.entity.Teach" resultType="int">
+  	select count(id) from teach
+  	<where>
+  		<if test="courseid!=null and courseid!=''">
+  		courseid = #{teach.courseid}
+  	</if>
+  	<if test="classid!=null and classid!=''">
+  		classid = #{teach.classid}
+  	</if>
+  	<if test="tid!=null and tid!=''">
+  		tid = #{teach.tid}
+  	</if>
+  	</where>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map">
+    update teach
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null">
+        classid = #{record.classid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseid != null">
+        courseid = #{record.courseid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update teach
+    set id = #{record.id,jdbcType=INTEGER},
+      classid = #{record.classid,jdbcType=VARCHAR},
+      tid = #{record.tid,jdbcType=VARCHAR},
+      courseid = #{record.courseid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zwh.stusys.entity.Teach">
+    update teach
+    <set>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        courseid = #{courseid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zwh.stusys.entity.Teach">
+    update teach
+    set classid = #{classid,jdbcType=VARCHAR},
+      tid = #{tid,jdbcType=VARCHAR},
+      courseid = #{courseid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
