@@ -10,7 +10,7 @@ public interface TeachService {
 	
 	public Teach searchById(int id);
 	
-	public List<Teach> searchAllTeachPage(Teach teach, int start,int length);
+	public List<Teach> searchAllTeachPage(Teach teach, int start, int length);
 	
 	public int searchCount(Teach teach);
 	

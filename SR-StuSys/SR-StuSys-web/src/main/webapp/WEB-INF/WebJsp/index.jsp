@@ -98,16 +98,13 @@ a:active {
 			        $("#password0").load("${pageContext.request.contextPath}/users/toEditPassword.do");
 				});
 				$("#kcgl").click(function(){
-					alert(3);
-			        $("#course").load("https://www.baidu.com");
+			        $("#course").load("${pageContext.request.contextPath}/course/toShowCourse.do");
 				});
 				$("#bjgl").click(function(){
-					alert(4);
-					$("#class").load("https://www.baidu.com");
+					$("#class").load("${pageContext.request.contextPath}/class/toShowClass.do");
 				});
 				$("#cjgl").click(function(){
-					alert(5);
-			        $("#score").load("https://www.baidu.com");
+			        $("#score").load("${pageContext.request.contextPath}/score/toShowScore.do");
 				});
 				$("#qxgl").click(function(){
 					alert(6);
@@ -144,10 +141,14 @@ a:active {
 				<div class="meun-item" href="#password0" data-toggle="tab" id="mmgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_rule_grey.png">密码修改</div>
 				<div class="meun-title">教学管理</div>
 				<div class="meun-item" href="#course" data-toggle="tab" id="kcgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_user_grey.png">课程管理</div>
+				<c:if test="${myuser.rid!='002' }">
 				<div class="meun-item" href="#class" data-toggle="tab" id="bjgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_house_grey.png">班级管理</div>
+				</c:if>
 				<div class="meun-item" href="#score" data-toggle="tab" id="cjgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_change_grey.png">成绩管理</div>
+				<c:if test="${myuser.rid=='001' }">
 				<div class="meun-title">权限管理</div>
 				<div class="meun-item" href="#permission" data-toggle="tab" id="qxgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_chara_grey.png">权限管理</div>
+				</c:if>
 			
 			</div>
 			<!-- 右侧具体内容栏目 -->

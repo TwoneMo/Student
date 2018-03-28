@@ -22,8 +22,8 @@ $(document).ready(function(){
 					if(jsonResult.tag==1){
 						/* $(".bootbox-close-button").click(); */
 						/* document.getElementById("reset").click(); */
-						$("#reset").click();
-						$("#reset").click();
+						$("#mmxgreset").click();
+						$("#mmxgreset").click();
 						alert(jsonResult.message);
 					}else{
 						alert(jsonResult.message);
@@ -59,7 +59,7 @@ $(document).ready(function(){
 	<button type="button" class="btn btn-success" id="btn_edit" name="btn_edit">提交</button>
 	</div>
 	<div align="right">
-	<button type="reset" class="btn btn-primary" id="reset" name="reset">重置</button>
+	<button type="reset" class="btn btn-primary" id="mmxgreset" name="reset">重置</button>
 	</div>
 	</form>
 </div>

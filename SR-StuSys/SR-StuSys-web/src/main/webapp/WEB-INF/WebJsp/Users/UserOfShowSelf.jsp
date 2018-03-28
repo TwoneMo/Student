@@ -107,7 +107,7 @@ $(document).ready(function(){
 	<button type="button" class="btn btn-success" id="sbtn_add" name="sbtn_add">提交</button>
 	</div>
 	<div align="right">
-	<button type="reset" class="btn btn-primary" id="reset" name="reset">重置</button>
+	<button type="reset" class="btn btn-primary" id="jbxxreset" name="reset">重置</button>
 	</div>
 	</form>
 	</c:if>
@@ -167,7 +167,7 @@ $(document).ready(function(){
 	<button type="button" class="btn btn-success" id="tbtn_add" name="tbtn_add">提交</button>
 	</div>
 	<div align="right">
-	<button type="reset" class="btn btn-primary" id="reset" name="reset">重置</button>
+	<button type="reset" class="btn btn-primary" id="jbxxreset" name="reset">重置</button>
 	</div>
 	</form>
 	</c:if>

@@ -10,6 +10,8 @@ public class Score {
     private Integer score;
     
     private Course course;
+    
+    private Student student;
 
     public Integer getId() {
         return id;
@@ -49,6 +51,14 @@ public class Score {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
     
 }

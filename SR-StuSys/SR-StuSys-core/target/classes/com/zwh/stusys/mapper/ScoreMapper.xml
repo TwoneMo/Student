@@ -12,6 +12,7 @@
     <result column="sid" jdbcType="VARCHAR" property="sid" />
     <result column="courseid" jdbcType="VARCHAR" property="courseid" />
     <result column="score" jdbcType="INTEGER" property="score" />
+    <association property="student" javaType="com.zwh.stusys.entity.Student" column="sid" select="com.zwh.stusys.mapper.StudentMapper.selectByTrueKey"></association>
   	<association property="course" javaType="com.zwh.stusys.entity.Course" column="courseid" select="com.zwh.stusys.mapper.CourseMapper.selectByTrueKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -149,7 +150,7 @@
     </if>
   </select>
   
-  <select id="searchAllstudentsPage" parameterType="map" resultMap="BaseResultMap2">
+  <select id="searchAllScorePage" parameterType="map" resultMap="BaseResultMap2">
   select
   <include refid="Base_Column_List" />
   from score
@@ -167,11 +168,11 @@
   <select id="searchCount" parameterType="com.zwh.stusys.entity.Score" resultType="int">
   	select count(id) from score
   	<where>
-  		<if test="score!=null and score.courseid!=null and score.courseid!=''">
-  			courseid = #{score.courseid}
+  		<if test="courseid!=null and courseid!=''">
+  			courseid = #{courseid}
   		</if>
-  		<if test="score!=null and score.sid!=null and score.sid!=''">
-  			sid = #{score.sid}
+  		<if test="sid!=null and sid!=''">
+  			sid = #{sid}
   		</if>
   	</where>
   </select>

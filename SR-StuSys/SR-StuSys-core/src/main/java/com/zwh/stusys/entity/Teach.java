@@ -12,6 +12,8 @@ public class Teach {
     private Class myclass;
     
     private Course course;
+    
+    private Teacher teacher;
 
     public Integer getId() {
         return id;
@@ -59,6 +61,14 @@ public class Teach {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
     
     

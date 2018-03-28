@@ -86,7 +86,7 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<!-- 包括com.lym.service下的任意一个包的任意一个类的任意一个方法 -->
+		<!-- 包括com.zwh.stusys.service下的任意一个包的任意一个类的任意一个方法 -->
 		<aop:pointcut expression="execution(* com.zwh.stusys.service..*(..))" id="mycut"/>
 		<!-- 管理切点 -->
 		<aop:advisor advice-ref="myadvice" pointcut-ref="mycut"/>

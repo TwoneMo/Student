@@ -12,6 +12,7 @@
     <result column="classid" jdbcType="VARCHAR" property="classid" />
     <result column="tid" jdbcType="VARCHAR" property="tid" />
     <result column="courseid" jdbcType="VARCHAR" property="courseid" />
+    <association property="teacher" javaType="com.zwh.stusys.entity.Teacher" column="tid" select="com.zwh.stusys.mapper.TeacherMapper.selectByTrueKey"></association>
     <association property="myclass" javaType="com.zwh.stusys.entity.Class" column="classid" select="com.zwh.stusys.mapper.ClassMapper.selectByTrueKey"></association>
     <association property="course" javaType="com.zwh.stusys.entity.Course" column="courseid" select="com.zwh.stusys.mapper.CourseMapper.selectByTrueKey"></association>
   </resultMap>
@@ -172,13 +173,13 @@
   	select count(id) from teach
   	<where>
   		<if test="courseid!=null and courseid!=''">
-  		courseid = #{teach.courseid}
+  		courseid = #{courseid}
   	</if>
   	<if test="classid!=null and classid!=''">
-  		classid = #{teach.classid}
+  		classid = #{classid}
   	</if>
   	<if test="tid!=null and tid!=''">
-  		tid = #{teach.tid}
+  		tid = #{tid}
   	</if>
   	</where>
   </select>
