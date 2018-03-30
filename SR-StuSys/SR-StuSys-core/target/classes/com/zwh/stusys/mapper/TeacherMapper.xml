@@ -203,7 +203,7 @@
   		tname like '%${teacher.tname}%'
   	</if>
   	<if test="teacher!=null and teacher.tid!=null and teacher.tid!=''">
-  		tid = #{teacher.tid}
+  		and tid = #{teacher.tid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -216,7 +216,7 @@
   		tname like '%${tname}%'
   	</if>
   	<if test="tid!=null and tid!=''">
-  		tid = #{tid}
+  		and tid = #{tid}
   	</if>
   	</where>
   </select>

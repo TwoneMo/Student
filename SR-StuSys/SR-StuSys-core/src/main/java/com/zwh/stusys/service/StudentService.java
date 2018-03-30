@@ -23,4 +23,6 @@ public interface StudentService {
 	public int deleteStudent(int id);
 	
 	public Student searchByUid(int uid);
+	
+	public List<Student> searchStudentByClassid(String classid);
 }

@@ -157,7 +157,7 @@
   		classname like '%${myclass.classname}%'
   	</if>
   	<if test="myclass!=null and myclass.classid!=null and myclass.classid!=''">
-  		classid = #{myclass.classid}
+  		and classid = #{myclass.classid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -170,7 +170,7 @@
   			classname like '%${classname}%'
   		</if>
   		<if test="classid!=null and classid!=''">
-  			classid = #{classid}
+  			and classid = #{classid}
   		</if>
   	</where>
   </select>

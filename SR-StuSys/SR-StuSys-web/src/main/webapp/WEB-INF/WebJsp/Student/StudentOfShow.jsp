@@ -15,7 +15,7 @@ function createTableT(){
 	if(datatable!=null){
 		datatable.destroy();
 	}
-	datatable=$('#table_id_example_class').DataTable({
+	datatable=$('#table_id_example_student').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -24,17 +24,18 @@ function createTableT(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/teach/doShowTeach_json.do",
+			url:"${pageContext.request.contextPath}/students/doShowStudent_json.do",
 			dataSrc:"data",
 			data:{
-				"tid":$("#tid").val()
+				"classid":$("#stu_classid").val()
 			},
 			type:"post"
 		},
 		columns:[
-			{data:'myclass.classname'},
-			{data:'myclass.classinfo'},
-			{data:'myclass.classid',render:function(data,type,row){
+			{data:'sid'},
+			{data:'sname'},
+			{data:'classid'},
+			{data:'id',render:function(data,type,row){
 		        return "<a href='javascript:searchStuByid("+data+");'>查看学生详情</a>"
 		    }}
 		]
@@ -45,7 +46,7 @@ function createTable(){
 	if(datatable!=null){
 		datatable.destroy();
 	}
-	datatable=$('#table_id_example_class').DataTable({
+	datatable=$('#table_id_example_student').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -75,18 +76,31 @@ function createTable(){
 
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
-	if(userrid=="002"){
-		$('#btnselect').click(function(){
-			createTableS();
-		});
-		createTableS();
-	} else if (userrid=="003"){
+	if(userrid=="003"){
 		$('#btnselect').click(function(){
 			createTableT();
 		});
 		createTableT();
+	} else if (userrid=="004"){
+		
 	}
 });
+
+function searchStuByid(id){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/students/toShowStuByid.do",
+		data:{
+			"id":id
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+			bootbox.dialog({
+			    message:result
+			});
+		}
+	})
+}
 
 function delUser(userId){
 	bootbox.confirm({
@@ -171,9 +185,9 @@ function addUser(userId){
 <body>
 <br>
 <input type="text" id="userrid" value="${myuser.rid }" >
+<input type="text" id="stu_classid" value="${classid }">
 <c:if test="${myuser.rid=='003' }">
-<input type="text" id="tid" name="tid" value="${other.tid }" hidden>
-<table id="table_id_example_class" class="display">
+<table id="table_id_example_student" class="display">
     <thead>
         <tr>
         	<td>学生学号</td>
@@ -199,7 +213,7 @@ function addUser(userId){
 	</select>
 	<input id="btnselect" type="button" value="搜索">
 </form>
-<table id="table_id_example_class" class="display">
+<table id="table_id_example_student" class="display">
     <thead>
         <tr>
         	<td>课程名称</td>

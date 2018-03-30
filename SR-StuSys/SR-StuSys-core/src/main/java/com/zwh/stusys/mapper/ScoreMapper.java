@@ -2,6 +2,7 @@ package com.zwh.stusys.mapper;
 
 import com.zwh.stusys.entity.Score;
 import com.zwh.stusys.entity.ScoreExample;
+import com.zwh.stusys.entity.Teach;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,8 @@ public interface ScoreMapper {
     List<Score> searchAllScorePage(@Param("score") Score score,@Param("start") int start,@Param("length") int length);
     
     int searchCount(Score score);
+    
+    List<Score> searchAllScorePageBytid(@Param("teach") Teach teach,@Param("start") int start,@Param("length") int length);
+    
+    int searchCountBytid(Teach teach);
 }

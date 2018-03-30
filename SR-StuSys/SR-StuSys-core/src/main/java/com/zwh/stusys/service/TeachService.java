@@ -20,4 +20,7 @@ public interface TeachService {
 	
 	public int deleteTeach(int id);
 	
+	public List<Teach> searchTeachByTid(String tid);
+	
+	public List<Teach> searchTeachByKinds(Teach teach);
 }

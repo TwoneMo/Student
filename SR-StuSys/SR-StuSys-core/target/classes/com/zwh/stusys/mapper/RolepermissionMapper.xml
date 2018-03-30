@@ -149,7 +149,7 @@
   		rid = #{rolepermission.rid}
   	</if>
   	<if test="rolepermission!=null and rolepermission.pid!=null and rolepermission.pid!=''">
-  		pid = #{rolepermission.pid}
+  		and pid = #{rolepermission.pid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -162,7 +162,7 @@
   			rid = #{rolepermission.rid}
   		</if>
   		<if test="pid!=null and pid!=''">
-  			pid = #{rolepermission.pid}
+  			and pid = #{rolepermission.pid}
   		</if>
   	</where>
   </select>

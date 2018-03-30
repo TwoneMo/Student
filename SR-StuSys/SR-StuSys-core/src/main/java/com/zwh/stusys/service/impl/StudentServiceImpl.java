@@ -78,4 +78,13 @@ public class StudentServiceImpl implements StudentService {
 		return Mapper.selectByExample(example).get(0);
 	}
 
+	@Override
+	public List<Student> searchStudentByClassid(String classid) {
+		// TODO Auto-generated method stub
+		StudentExample example = new StudentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andClassidEqualTo(classid);
+		return Mapper.selectByExample(example);
+	}
+
 }

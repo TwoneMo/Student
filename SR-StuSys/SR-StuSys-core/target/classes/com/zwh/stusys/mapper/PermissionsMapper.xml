@@ -180,7 +180,7 @@
   		pname like '%${permissions.pname}%'
   	</if>
   	<if test="permissions!=null and permissions.parentid!=null and permission.parentid!=''">
-  		parentid = #{permissions.parentid}
+  		and parentid = #{permissions.parentid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -193,7 +193,7 @@
   			pname like '%${pname}%'
   		</if>
   		<if test="parentid!=null and parentid!=''">
-  			parentid = #{parentid}
+  			and parentid = #{parentid}
   		</if>
   	</where>
   </select>

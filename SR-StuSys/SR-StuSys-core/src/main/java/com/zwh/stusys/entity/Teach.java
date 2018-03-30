@@ -70,6 +70,12 @@ public class Teach {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+
+	@Override
+	public String toString() {
+		return "Teach [id=" + id + ", classid=" + classid + ", tid=" + tid + ", courseid=" + courseid + ", myclass="
+				+ myclass + ", course=" + course + ", teacher=" + teacher + "]";
+	}
     
     
 }

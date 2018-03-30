@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zwh.stusys.entity.Score;
+import com.zwh.stusys.entity.Teach;
+import com.zwh.stusys.entity.Teacher;
 import com.zwh.stusys.entity.Users;
 import com.zwh.stusys.service.ScoreService;
 import com.zwh.stusys.service.StudentService;
+import com.zwh.stusys.service.TeachService;
 import com.zwh.stusys.service.TeacherService;
 import com.zwh.stusys.utils.DataTables;
 
@@ -28,7 +31,9 @@ public class ScoreControl {
 	private StudentService stus;
 	
 	@Autowired
-	private TeacherService ts;
+	private TeacherService teas;
+	
+	@Autowired TeachService ts;
 	
 	@RequestMapping("toShowScore.do")
 	private String toShowScore(HttpServletRequest request) {
@@ -40,7 +45,11 @@ public class ScoreControl {
 			if("002".equals(rid)) {
 				request.setAttribute("student", stus.searchByUid(myuser.getId()));
 			} else {
-				request.setAttribute("other", ts.searchByUid(myuser.getId()));
+				Teacher teacher = teas.searchByUid(myuser.getId());
+				request.setAttribute("other", teacher);
+				if("003".equals(rid)) {
+					request.setAttribute("teach", ts.searchTeachByTid(teacher.getTid()));
+				}
 			}
 		}
 		return "WebJsp/Score/ScoreOfShow";
@@ -48,14 +57,28 @@ public class ScoreControl {
 	
 	@RequestMapping("doShowScore_json.do")
 	@ResponseBody
-	private DataTables doShowCourseOfStu(Score score, int start, int length) {
+	private DataTables doShowScore_json(Score score, int start, int length) {
 		// TODO Auto-generated method stub
 		List<Score> list = ss.searchAllScorePage(score, start, length);
-		DataTables table = new DataTables();
+		DataTables tables = new DataTables();
 		int count = ss.searchCount(score);
-		table.setData(list);
-		table.setRecordsTotal(count);
-		table.setRecordsFiltered(count);
-		return table;
+		tables.setData(list);
+		tables.setRecordsTotal(count);
+		tables.setRecordsFiltered(count);
+		return tables;
+	}
+	
+	@RequestMapping("doShowScore_jsonOfTea.do")
+	@ResponseBody
+	private DataTables doShowScore_jsonOfTea(Teach teach, int start, int length) {
+		// TODO Auto-generated method stub
+		System.out.println("-------------------"+ teach);
+		DataTables tables = new DataTables();
+		List<Score> list = ss.searchAllScorePageByTid(teach, start, length);
+		int count = ss.searchCountByTid(teach);
+		tables.setData(list);
+		tables.setRecordsTotal(count);
+		tables.setRecordsFiltered(count);
+		return tables;
 	}
 }

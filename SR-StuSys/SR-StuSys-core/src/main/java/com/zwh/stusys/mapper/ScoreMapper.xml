@@ -159,7 +159,7 @@
   		courseid = #{score.courseid}
   	</if>
   	<if test="score!=null and score.sid!=null and score.sid!=''">
-  		sid = #{score.sid}
+  		and sid = #{score.sid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -172,9 +172,46 @@
   			courseid = #{courseid}
   		</if>
   		<if test="sid!=null and sid!=''">
-  			sid = #{sid}
+  			and sid = #{sid}
   		</if>
   	</where>
+  </select>
+  
+  <select id="searchAllScorePageBytid" parameterType="map" resultMap="BaseResultMap2">
+  SELECT score.*
+  FROM score,teach,student
+  <where>
+  teach.classid = student.classid AND teach.courseid = score.courseid AND student.sid = score.sid
+  <if test="teach!=null">
+  	<if test="teach.tid!=null and teach.tid!=''">
+  		and teach.tid = #{teach.tid}
+  	</if>
+  	<if test="teach.classid!=null and teach.classid!='' and teach.classid!=0">
+ 	 	and teach.classid = #{teach.classid}
+ 	 </if>
+ 	 <if test="teach.courseid!=null and teach.courseid!='' and teach.courseid!=0">
+ 	 	and teach.courseid = #{teach.courseid}
+ 	 </if>
+  </if>
+  </where>
+  limit #{start},#{length}
+  </select>
+  
+  <select id="searchCountBytid" parameterType="com.zwh.stusys.entity.Teach" resultType="int">
+  SELECT count(score.id)
+  FROM score,teach,student
+  <where>
+  teach.classid = student.classid AND teach.courseid = score.courseid AND student.sid = score.sid
+  	<if test="tid!=null and tid!=''">
+  		and teach.tid = #{tid}
+  	</if>
+  	<if test="classid!=null and classid!='' and classid!=0">
+ 	 	and teach.classid = #{classid}
+ 	</if>
+ 	<if test="courseid!=null and courseid!='' and courseid!=0">
+ 	 	and teach.courseid = #{courseid}
+ 	</if>
+  </where>
   </select>
   
   <update id="updateByExampleSelective" parameterType="map">

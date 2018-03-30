@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zwh.stusys.entity.Score;
 import com.zwh.stusys.entity.ScoreExample;
 import com.zwh.stusys.entity.ScoreExample.Criteria;
+import com.zwh.stusys.entity.Teach;
 import com.zwh.stusys.mapper.ScoreMapper;
 import com.zwh.stusys.service.ScoreService;
 
@@ -68,6 +69,18 @@ public class ScoreServiceImpl implements ScoreService {
 	public int deleteScore(int id) {
 		// TODO Auto-generated method stub
 		return deleteScore(id);
+	}
+
+	@Override
+	public List<Score> searchAllScorePageByTid(Teach teach, int start, int length) {
+		// TODO Auto-generated method stub
+		return Mapper.searchAllScorePageBytid(teach, start, length);
+	}
+
+	@Override
+	public int searchCountByTid(Teach teach) {
+		// TODO Auto-generated method stub
+		return Mapper.searchCountBytid(teach);
 	}
 
 }

@@ -164,7 +164,7 @@
   		username like '%${user.username}%'
   	</if>
   	<if test="user!=null and user.rid!=null and user.rid!=''">
-  		rid = #{user.rid}
+  		and rid = #{user.rid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -177,7 +177,7 @@
   			username like '%${username}%'
   		</if>
   		<if test="rid!=null and rid!=''">
-  			rid = #{rid}
+  			and rid = #{rid}
   		</if>
   	</where>
   </select>

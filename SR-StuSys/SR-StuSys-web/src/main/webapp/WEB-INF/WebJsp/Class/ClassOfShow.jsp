@@ -27,7 +27,7 @@ function createTableT(){
 			url:"${pageContext.request.contextPath}/teach/doShowTeach_json.do",
 			dataSrc:"data",
 			data:{
-				"tid":$("#tid").val()
+				"tid":$("#class_tid").val()
 			},
 			type:"post"
 		},
@@ -75,18 +75,31 @@ function createTable(){
 
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
-	if(userrid=="002"){
-		$('#btnselect').click(function(){
-			createTableS();
-		});
-		createTableS();
-	} else if (userrid=="003"){
+	if(userrid=="003"){
 		$('#btnselect').click(function(){
 			createTableT();
 		});
 		createTableT();
+	} else if (userrid=="004"){
+		
 	}
 });
+
+function searchStuByclassid(classid){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/students/toShowStudent.do",
+		data:{
+			"classid":classid
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+				bootbox.dialog({
+				    message:result
+				});
+		}
+	})
+}
 
 function delUser(userId){
 	bootbox.confirm({
@@ -172,7 +185,7 @@ function addUser(userId){
 <br>
 <input type="text" id="userrid" value="${myuser.rid }" >
 <c:if test="${myuser.rid=='003' }">
-<input type="text" id="tid" name="tid" value="${other.tid }" hidden>
+<input type="text" id="class_tid" name="tid" value="${other.tid }" hidden>
 <table id="table_id_example_class" class="display">
     <thead>
         <tr>

@@ -164,10 +164,10 @@
   		cname like '%${course.cname}%'
   	</if>
   	<if test="course!=null and course.courseid!=null and course.courseid!=''">
-  		courseid = #{course.courseid}
+  		and courseid = #{course.courseid}
   	</if>
   	<if test="course!=null and course.credit!=null and course.credit!=''">
-  		credit = #{course.credit}
+  		and credit = #{course.credit}
   	</if>
   </where>
   limit #{start},#{length}
@@ -180,10 +180,10 @@
   			cname like '%${cname}%'
   		</if>
   		<if test="courseid!=null and courseid!=''">
-  			courseid = #{courseid}
+  			and courseid = #{courseid}
   		</if>
   		<if test="credit!=null and credit!=''">
-  			credit = #{credit}
+  			and credit = #{credit}
   		</if>
   	</where>
   </select>

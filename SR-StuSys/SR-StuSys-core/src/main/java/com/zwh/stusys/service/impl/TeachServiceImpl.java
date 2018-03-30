@@ -48,7 +48,6 @@ public class TeachServiceImpl implements TeachService{
 		TeachExample example = new TeachExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andClassidEqualTo(teach.getClassid());
-		criteria.andTidEqualTo(teach.getTid());
 		criteria.andCourseidEqualTo(teach.getCourseid());
 		List<Teach> list = Mapper.selectByExample(example);
 		if(list != null && list.size() > 0) {
@@ -69,6 +68,37 @@ public class TeachServiceImpl implements TeachService{
 	public int deleteTeach(int id) {
 		// TODO Auto-generated method stub
 		return Mapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Teach> searchTeachByTid(String tid) {
+		// TODO Auto-generated method stub
+		TeachExample example = new TeachExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andTidEqualTo(tid);
+		List<Teach> list = Mapper.selectByExample(example);
+		return list;
+	}
+
+	@Override
+	public List<Teach> searchTeachByKinds(Teach teach) {
+		// TODO Auto-generated method stub
+		TeachExample example = new TeachExample();
+		Criteria criteria = example.createCriteria();
+		String tid = teach.getTid();
+		String classid = teach.getClassid();
+		String courseid = teach.getCourseid();
+		if(tid!=null) {
+			criteria.andTidEqualTo(tid);
+		}
+		if(classid!=null) {
+			criteria.andClassidEqualTo(classid);
+		}
+		if(courseid!=null) {
+			criteria.andCourseidEqualTo(courseid);
+		}
+		List<Teach> list = Mapper.selectByExample(example);
+		return list;
 	}
 
 }

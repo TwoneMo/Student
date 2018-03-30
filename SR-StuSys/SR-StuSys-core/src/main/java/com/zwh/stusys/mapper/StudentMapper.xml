@@ -103,7 +103,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
     select 
     <include refid="Base_Column_List" />
     from student
@@ -224,13 +224,13 @@
   		sname like '%${student.sname}%'
   	</if>
   	<if test="student!=null and student.classid!=null and student.classid!=''">
-  		classid = #{student.classid}
+  		and classid = #{student.classid}
   	</if>
   	<if test="student!=null and student.sid!=null and student.sid!=''">
-  		sid = #{student.sid}
+  		and sid = #{student.sid}
   	</if>
   	<if test="student!=null and student.address!=null and student.address!=''">
-  		address = #{student.address}
+  		and address = #{student.address}
   	</if>
   </where>
   limit #{start},#{length}
@@ -243,13 +243,13 @@
   			sname like '%${sname}%'
   		</if>
   		<if test="classid!=null and classid!=''">
-  			classid = #{classid}
+  			and classid = #{classid}
   		</if>
   		<if test="sid!=null and sid!=''">
-  			sid = #{sid}
+  			and sid = #{sid}
   		</if>
   		<if test="address!=null and address!=''">
-  			address = #{address}
+  			and address = #{address}
   		</if>
   	</where>
   </select>

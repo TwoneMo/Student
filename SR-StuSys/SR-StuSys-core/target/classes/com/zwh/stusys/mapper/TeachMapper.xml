@@ -160,10 +160,10 @@
   		courseid = #{teach.courseid}
   	</if>
   	<if test="teach!=null and teach.classid!=null and teach.classid!=''">
-  		classid = #{teach.classid}
+  		and classid = #{teach.classid}
   	</if>
   	<if test="teach!=null and teach.tid!=null and teach.tid!=''">
-  		tid = #{teach.tid}
+  		and tid = #{teach.tid}
   	</if>
   </where>
   limit #{start},#{length}
@@ -176,10 +176,10 @@
   		courseid = #{courseid}
   	</if>
   	<if test="classid!=null and classid!=''">
-  		classid = #{classid}
+  		and classid = #{classid}
   	</if>
   	<if test="tid!=null and tid!=''">
-  		tid = #{tid}
+  		and tid = #{tid}
   	</if>
   	</where>
   </select>
