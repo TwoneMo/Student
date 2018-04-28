@@ -9,13 +9,44 @@
 </head>
 
 <script type="text/javascript">
-var datatable=null;
+var datatable_student=null;
 
 function createTableT(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_student!=null){
+		datatable_student.destroy();
 	}
-	datatable=$('#table_id_example_student').DataTable({
+	datatable_student=$('#table_id_example_student').DataTable({
+		searching:false,
+		ordering:false,
+		language: {
+			url: '${pageContext.request.contextPath}/static/china.json'
+		},
+		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
+		serverSide:true,
+		ajax:{
+			url:"${pageContext.request.contextPath}/students/doShowStudent_json.do",
+			dataSrc:"data",
+			data:{
+				"classid":$("#stu_classid").val()
+			},
+			type:"post"
+		},
+		columns:[
+			{data:'sid'},
+			{data:'sname'},
+			{data:'classid'},
+			{data:'id',render:function(data,type,row){
+		        return "<a href='javascript:searchStuByid("+data+");'>查看学生详情</a>"
+		    }}
+		]
+	})
+}
+
+function createTableT(){
+	if(datatable_student!=null){
+		datatable_student.destroy();
+	}
+	datatable_student=$('#table_id_example_student').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -43,10 +74,10 @@ function createTableT(){
 }
 
 function createTable(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_student!=null){
+		datatable_student.destroy();
 	}
-	datatable=$('#table_id_example_student').DataTable({
+	datatable_student=$('#table_id_example_student').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -126,7 +157,7 @@ function delUser(userId){
 	    			dataType:"json",
 	    			success:function(datajson){
 	    				if(datajson.tag==1){
-	    					datatable.draw(1);
+	    					datatable_student.draw(1);
 	    				}else{
 	    					alert(datajson.message)
 	    				}

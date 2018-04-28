@@ -9,13 +9,13 @@
 </head>
 
 <script type="text/javascript">
-var datatable=null;
+var datatable_course=null;
 
 function createTableS(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_course!=null){
+		datatable_course.destroy();
 	}
-	datatable=$('#table_id_example_course').DataTable({
+	datatable_course=$('#table_id_example_course').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -41,10 +41,10 @@ function createTableS(){
 }
 
 function createTableT(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_course!=null){
+		datatable_course.destroy();
 	}
-	datatable=$('#table_id_example_course').DataTable({
+	datatable_course=$('#table_id_example_course').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -69,11 +69,42 @@ function createTableT(){
 	})
 }
 
-function createTable(){
-	if(datatable!=null){
-		datatable.destroy();
+function createTableTW(){
+	if(datatable_course!=null){
+		datatable_course.destroy();
 	}
-	datatable=$('#table_id_example_course').DataTable({
+	datatable_course=$('#table_id_example_course').DataTable({
+		searching:false,
+		ordering:false,
+		language: {
+			url: '${pageContext.request.contextPath}/static/china.json'
+		},
+		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
+		serverSide:true,
+		ajax:{
+			url:"${pageContext.request.contextPath}/course/doShowCourse_json.do",
+			dataSrc:"data",
+			data:{
+				"cname":$("#course_show_search_name").val()
+			},
+			type:"post"
+		},
+		columns:[
+			{data:'cname'},
+			{data:'score'},
+			{data:'credit'},
+			{data:'id',render:function(data,type,row){
+		        return "<a href='javascript:editCourse("+data+");'>修改</a>    <a href='javascript:delCourse("+data+");'>删除</a>    <a href='javascript:CourseInfo("+data+");'>详情</a>    <a href='javascript:addCourse("+data+");'>增加</a>"
+		    }}
+		]
+	})
+}
+
+function createTable(){
+	if(datatable_course!=null){
+		datatable_course.destroy();
+	}
+	datatable_course=$('#table_id_example_course').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -104,21 +135,20 @@ function createTable(){
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
 	if(userrid=="002"){
-		$('#btnselect').click(function(){
-			createTableS();
-		});
 		createTableS();
 	} else if (userrid=="003"){
-		$('#btnselect').click(function(){
-			createTableT();
-		});
 		createTableT();
+	} else if (userrid=="004"){
+		$('#course_btnselect').click(function(){
+			createTableTW();
+		});
+		createTableTW();
 	}
 });
 
-function delUser(userId){
+function delCourse(id){
 	bootbox.confirm({
-	    message: "是否删除该该用户？",
+	    message: "删除该课程将连带删除该课程下的所有教学关系，是否删除该课程？",
 	    buttons: {
 	        confirm: {
 	            label: '是',
@@ -132,15 +162,15 @@ function delUser(userId){
 	    callback: function (result) {
 	    	if(result){
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/admin/users/dodel.do",
+	    			url:"${pageContext.request.contextPath}/course/doDel.do",
 	    			data:{
-	    				"userId":userId
+	    				"id":id
 	    			},
 	    			type:"post",
 	    			dataType:"json",
 	    			success:function(datajson){
 	    				if(datajson.tag==1){
-	    					datatable.draw(1);
+	    					datatable_course.draw(1);
 	    				}else{
 	    					alert(datajson.message)
 	    				}
@@ -155,11 +185,11 @@ function delUser(userId){
 	
 	
 }
-function editUser(userId){
+function editCourse(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toedit.do",
+		url:"${pageContext.request.contextPath}/course/toEdit.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
@@ -168,6 +198,7 @@ function editUser(userId){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"课程修改",
 				    message:result
 				});
 			}
@@ -175,11 +206,11 @@ function editUser(userId){
 	})
 }
 
-function addUser(userId){
+function addCourse(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toadd.do",
+		url:"${pageContext.request.contextPath}/course/toAdd.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
@@ -188,6 +219,28 @@ function addUser(userId){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"课程添加",
+				    message:result
+				});
+			}
+		}
+	})
+}
+
+function CourseInfo(id){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/course/toInfo.do",
+		data:{
+			"id":id
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+			if(result=="<script>alert('权限不够，不能访问！')"){
+				alert("权限不够，不能访问！");
+			}else{
+				bootbox.dialog({
+					title:"教学详情",
 				    message:result
 				});
 			}
@@ -206,7 +259,7 @@ function addUser(userId){
         <tr>
         	<td>课程名称</td>
         	<td>授课老师</td>
-        	<td>课程分数</td>
+        	<td>课程总分</td>
         	<td>课程学分</td>
         </tr>
     </thead>
@@ -223,7 +276,7 @@ function addUser(userId){
         <tr>
         	<td>课程名称</td>
         	<td>授课班级</td>
-        	<td>课程分数</td>
+        	<td>课程总分</td>
         	<td>课程学分</td>
         </tr>
     </thead>
@@ -234,23 +287,17 @@ function addUser(userId){
 </c:if>
 
 <c:if test="${myuser.rid!='002'&&myuser.rid!='003' }">
-<form id="framsearch">
-	用户名称：<input id="userName_s" type="text" value="">
-	用户角色：<select id="selroleids">
-		<option value="0">请选择</option>
-		<c:forEach items="${roles }" var="r">
-			<option value="${r.roleId}">${r.roleName }</option>
-		</c:forEach>
-	</select>
-	<input id="btnselect" type="button" value="搜索">
+<form id="framsearch_course">
+	课程名称：<input id="course_show_search_name" type="text" value="">
+	<input id="course_btnselect" type="button" value="搜索">
 </form>
 <table id="table_id_example_course" class="display">
     <thead>
         <tr>
         	<td>课程名称</td>
-        	<td>授课老师</td>
-        	<td>课程分数</td>
+        	<td>课程总分</td>
         	<td>课程学分</td>
+        	<td>操作</td>
         </tr>
     </thead>
     <tbody>

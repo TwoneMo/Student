@@ -61,7 +61,21 @@ public class TeachServiceImpl implements TeachService{
 	@Override
 	public int updateTeach(Teach teach) {
 		// TODO Auto-generated method stub
-		return Mapper.updateByPrimaryKey(teach);
+		int result = 0;
+		TeachExample example = new TeachExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andClassidEqualTo(teach.getClassid());
+		criteria.andCourseidEqualTo(teach.getCourseid());
+		List<Teach> list = Mapper.selectByExample(example);
+		if(list != null && list.size() > 0) {
+			if(list.get(0).getId().equals(teach.getId())) {
+				result = Mapper.updateByPrimaryKey(teach);
+			}
+			result = -1;
+		} else {
+			result = Mapper.updateByPrimaryKey(teach);
+		}
+		return result;
 	}
 
 	@Override

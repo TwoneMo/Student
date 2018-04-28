@@ -9,13 +9,13 @@
 </head>
 
 <script type="text/javascript">
-var datatable=null;
+var datatable_class=null;
 
 function createTableT(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_class!=null){
+		datatable_class.destroy();
 	}
-	datatable=$('#table_id_example_class').DataTable({
+	datatable_class=$('#table_id_example_class').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -27,7 +27,7 @@ function createTableT(){
 			url:"${pageContext.request.contextPath}/teach/doShowTeach_json.do",
 			dataSrc:"data",
 			data:{
-				"tid":$("#class_tid").val()
+				"tid":$("#class_show_tid").val()
 			},
 			type:"post"
 		},
@@ -41,11 +41,41 @@ function createTableT(){
 	})
 }
 
-function createTable(){
-	if(datatable!=null){
-		datatable.destroy();
+function createTableTW(){
+	if(datatable_class!=null){
+		datatable_class.destroy();
 	}
-	datatable=$('#table_id_example_class').DataTable({
+	datatable_class=$('#table_id_example_class').DataTable({
+		searching:false,
+		ordering:false,
+		language: {
+			url: '${pageContext.request.contextPath}/static/china.json'
+		},
+		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
+		serverSide:true,
+		ajax:{
+			url:"${pageContext.request.contextPath}/class/doShowClass_json.do",
+			dataSrc:"data",
+			data:{
+				"classname":$("#class_show_classname").val()
+			},
+			type:"post"
+		},
+		columns:[
+			{data:'classname'},
+			{data:'classinfo'},
+			{data:'id',render:function(data,type,row){
+				return "<a href='javascript:editClass("+data+");'>修改</a>    <a href='javascript:delClass("+data+");'>删除</a>    <a href='javascript:ClassInfo("+data+");'>详情</a>    <a href='javascript:addClass("+data+");'>增加</a>"
+		    }}
+		]
+	})
+}
+
+function createTable(){
+	if(datatable_class!=null){
+		datatable_class.destroy();
+	}
+	datatable_class=$('#table_id_example_class').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -76,12 +106,12 @@ function createTable(){
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
 	if(userrid=="003"){
-		$('#btnselect').click(function(){
-			createTableT();
-		});
 		createTableT();
 	} else if (userrid=="004"){
-		
+		$('#class_btnselect').click(function(){
+			createTableTW();
+		});
+		createTableTW();
 	}
 });
 
@@ -101,9 +131,9 @@ function searchStuByclassid(classid){
 	})
 }
 
-function delUser(userId){
+function delClass(userId){
 	bootbox.confirm({
-	    message: "是否删除该该用户？",
+	    message: "删除该班级将连携删除该班级下的所有学生归属信息，是否删除该该用户？",
 	    buttons: {
 	        confirm: {
 	            label: '是',
@@ -117,15 +147,15 @@ function delUser(userId){
 	    callback: function (result) {
 	    	if(result){
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/admin/users/dodel.do",
+	    			url:"${pageContext.request.contextPath}/class/doDel.do",
 	    			data:{
-	    				"userId":userId
+	    				"id":id
 	    			},
 	    			type:"post",
 	    			dataType:"json",
 	    			success:function(datajson){
 	    				if(datajson.tag==1){
-	    					datatable.draw(1);
+	    					datatable_class.draw(1);
 	    				}else{
 	    					alert(datajson.message)
 	    				}
@@ -140,11 +170,11 @@ function delUser(userId){
 	
 	
 }
-function editUser(userId){
+function editClass(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toedit.do",
+		url:"${pageContext.request.contextPath}/class/toEdit.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
@@ -160,11 +190,31 @@ function editUser(userId){
 	})
 }
 
-function addUser(userId){
+function addClass(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toadd.do",
+		url:"${pageContext.request.contextPath}/class/toAdd.do",
 		data:{
-			"userId":userId
+			"id":id
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+			if(result=="<script>alert('权限不够，不能访问！')"){
+				alert("权限不够，不能访问！");
+			}else{
+				bootbox.dialog({
+				    message:result
+				});
+			}
+		}
+	})
+}
+
+function ClassInfo(id){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/class/toInfo.do",
+		data:{
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
@@ -185,13 +235,32 @@ function addUser(userId){
 <br>
 <input type="text" id="userrid" value="${myuser.rid }" >
 <c:if test="${myuser.rid=='003' }">
-<input type="text" id="class_tid" name="tid" value="${other.tid }" hidden>
+<input type="text" id="class_show_tid" name="tid" value="${other.tid }" hidden>
 <table id="table_id_example_class" class="display">
     <thead>
         <tr>
         	<td>班级名称</td>
         	<td>班级备注</td>
         	<td>班级详情</td>
+        </tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+</table>
+</c:if>
+
+<c:if test="${myuser.rid=='004' }">
+<form id="framsearch">
+	班级名称：<input id="class_show_name" type="text" value="">
+	<input id="class_btnselect" type="button" value="搜索">
+</form>
+<table id="table_id_example_class" class="display">
+    <thead>
+        <tr>
+        	<td>班级名称</td>
+        	<td>班级备注</td>
+        	<td>操作</td>
         </tr>
     </thead>
     <tbody>
@@ -209,7 +278,7 @@ function addUser(userId){
 			<option value="${r.roleId}">${r.roleName }</option>
 		</c:forEach>
 	</select>
-	<input id="btnselect" type="button" value="搜索">
+	<input id="class_btnselect" type="button" value="搜索">
 </form>
 <table id="table_id_example_class" class="display">
     <thead>

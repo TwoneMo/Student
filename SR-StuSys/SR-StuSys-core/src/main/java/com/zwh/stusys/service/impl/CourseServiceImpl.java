@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.zwh.stusys.entity.Course;
 import com.zwh.stusys.entity.CourseExample;
 import com.zwh.stusys.entity.CourseExample.Criteria;
+import com.zwh.stusys.entity.Teach;
+import com.zwh.stusys.entity.TeachExample;
 import com.zwh.stusys.mapper.CourseMapper;
+import com.zwh.stusys.mapper.TeachMapper;
 import com.zwh.stusys.service.CourseService;
 
 @Service("courseService")
@@ -16,6 +19,9 @@ public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	private CourseMapper Mapper;
+	
+	@Autowired
+	private TeachMapper tm;
 	
 	@Override
 	public List<Course> searchAllCourse() {
@@ -86,7 +92,23 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public int deleteCourse(int id) {
 		// TODO Auto-generated method stub
-		return Mapper.deleteByPrimaryKey(id);
+		Course course = Mapper.selectByPrimaryKey(id);
+		if(course != null) {
+			TeachExample example = new TeachExample();
+			com.zwh.stusys.entity.TeachExample.Criteria criteria = example.createCriteria();
+			criteria.andCourseidEqualTo(course.getCourseid());
+			List<Teach> teach_list = tm.selectByExample(example);
+			if(teach_list != null && teach_list.size() != 0) {
+				int teach_result = tm.deleteByExample(example);
+				if(teach_result > 0) {
+					return Mapper.deleteByPrimaryKey(id);
+				}else {
+					return -1;
+				}
+			}
+			return Mapper.deleteByPrimaryKey(id);
+		}
+		return -1;
 	}
 
 }

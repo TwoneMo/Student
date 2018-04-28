@@ -72,7 +72,6 @@ public class ScoreControl {
 	@ResponseBody
 	private DataTables doShowScore_jsonOfTea(Teach teach, int start, int length) {
 		// TODO Auto-generated method stub
-		System.out.println("-------------------"+ teach);
 		DataTables tables = new DataTables();
 		List<Score> list = ss.searchAllScorePageByTid(teach, start, length);
 		int count = ss.searchCountByTid(teach);
@@ -81,4 +80,11 @@ public class ScoreControl {
 		tables.setRecordsFiltered(count);
 		return tables;
 	}
+	
+	@RequestMapping("toadd.do")
+	private String toadd(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return "WebJsp/Score/ScoreOfAdd";
+	}
+	
 }

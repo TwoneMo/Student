@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.zwh.stusys.entity.Class;
 import com.zwh.stusys.entity.ClassExample;
 import com.zwh.stusys.entity.ClassExample.Criteria;
+import com.zwh.stusys.entity.Student;
+import com.zwh.stusys.entity.StudentExample;
 import com.zwh.stusys.mapper.ClassMapper;
+import com.zwh.stusys.mapper.StudentMapper;
 import com.zwh.stusys.service.ClassService;
 
 @Service("classService")
@@ -16,6 +19,9 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private ClassMapper Mapper;
+	
+	@Autowired
+	private StudentMapper sm;
 	
 	@Override
 	public List<Class> searchAllClass() {
@@ -86,7 +92,25 @@ public class ClassServiceImpl implements ClassService {
 	@Override
 	public int deleteClass(int id) {
 		// TODO Auto-generated method stub
-		return Mapper.deleteByPrimaryKey(id);
+		Class myclass = Mapper.selectByPrimaryKey(id);
+		if(myclass != null) {
+			StudentExample example = new StudentExample();
+			com.zwh.stusys.entity.StudentExample.Criteria criteria = example.createCriteria();
+			criteria.andClassidEqualTo(myclass.getClassid());
+			List<Student> stu_list = sm.selectByExample(example);
+			if(stu_list != null && stu_list.size() != 0) {
+				Student stu = new Student();
+				stu.setClassid("");
+				int stu_result = sm.updateByExampleSelective(stu, example);
+				if(stu_result > 0) {
+					return Mapper.deleteByPrimaryKey(id);
+				} else {
+					return -1;
+				}
+			}
+			return Mapper.deleteByPrimaryKey(id);
+		}
+		return -1;
 	}
 
 }

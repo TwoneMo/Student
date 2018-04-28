@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zwh.stusys.entity.Class;
 import com.zwh.stusys.entity.Student;
+import com.zwh.stusys.entity.Users;
+import com.zwh.stusys.service.ClassService;
 import com.zwh.stusys.service.StudentService;
+import com.zwh.stusys.service.UsersService;
 import com.zwh.stusys.utils.AjaxResult;
 import com.zwh.stusys.utils.DataTables;
 
@@ -20,6 +24,12 @@ public class StudentsControl {
 
 	@Autowired
 	private StudentService ss;
+	
+	@Autowired
+	private UsersService us;
+	
+	@Autowired
+	private ClassService cs;
 	
 	@RequestMapping("doEditSelf.do")
 	@ResponseBody
@@ -64,5 +74,31 @@ public class StudentsControl {
 		Student stu = ss.searchById(Integer.valueOf(id));
 		request.setAttribute("stu", stu);
 		return "WebJsp/Student/StudentOfInfo";
+	}
+	
+	@RequestMapping("toAdd.do")
+	private String toAdd(String username, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		Users user = us.searchByname(username);
+		List<Class> classlist = cs.searchAllClass();
+		request.setAttribute("classlist", classlist);
+		request.setAttribute("user", user);
+		return "/WebJsp/Student/StudentOfAdd";
+	}
+	
+	@RequestMapping("doAdd.do")
+	@ResponseBody
+	private AjaxResult doAdd(Student student) {
+		// TODO Auto-generated method stub
+		System.out.println(student);
+		int result = ss.addStudent(student);
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setTag(result);
+		if(result > 0) {
+			ajaxResult.setMessage("学生添加成功");
+		}else {
+			ajaxResult.setMessage("学生添加失败");
+		}
+		return ajaxResult;
 	}
 }

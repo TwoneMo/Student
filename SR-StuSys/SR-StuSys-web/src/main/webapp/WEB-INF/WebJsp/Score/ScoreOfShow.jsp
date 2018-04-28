@@ -67,7 +67,7 @@ function createTableT(){
 			{data:'course.cname'},
 			{data:'score'},
 			{data:'id',render:function(data,type,row){
-		        return "<a href='javascript:editUser("+data+");'>修改</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:addUser("+data+");'>增加</a>"
+		        return "<a href='javascript:addScore("+data+");'>增加</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:editUser("+data+");'>修改</a>"
 		    }}
 		]
 	})
@@ -180,22 +180,18 @@ function editUser(userId){
 	})
 }
 
-function addUser(userId){
+function addScore(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toadd.do",
+		url:"${pageContext.request.contextPath}/score/toadd.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
 		success:function(result){
-			if(result=="<script>alert('权限不够，不能访问！')"){
-				alert("权限不够，不能访问！");
-			}else{
-				bootbox.dialog({
-				    message:result
-				});
-			}
+			bootbox.dialog({
+			    message:result
+			});
 		}
 	})
 }
@@ -211,7 +207,7 @@ function addUser(userId){
         <tr>
         	<td>课程名称</td>
         	<td>课程总分</td>
-        	<td>课程得分</td>        	
+        	<td>课程得分</td>
         </tr>
     </thead>
     <tbody>

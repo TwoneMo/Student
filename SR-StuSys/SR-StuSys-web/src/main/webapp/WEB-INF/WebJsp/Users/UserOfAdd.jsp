@@ -26,7 +26,33 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(jsonResult){
 				if(jsonResult.tag==1){
-					$(".bootbox-close-button").click();
+					if($("#rid").val()=='002'){
+						$.ajax({
+							url:"${pageContext.request.contextPath }/students/toAdd.do",
+							type:"post",
+							data:{"username":$("#username").val()},
+							dataType:"text",
+							success:function(result){
+								bootbox.dialog({
+									title:"学生信息填写",
+								    message:result
+								});
+							}
+						})
+					}else if($("#rid").val()=='003'){
+						$.ajax({
+							url:"${pageContext.request.contextPath }/teachers/toAdd.do",
+							type:"post",
+							data:{"username":$("#username").val()},
+							dataType:"text",
+							success:function(result){
+								bootbox.dialog({
+									title:"教师信息填写",
+								    message:result
+								});
+							}
+						})
+					}
 				}else{
 					alert(jsonResult.message);
 				}
