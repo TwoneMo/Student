@@ -101,4 +101,73 @@ public class StudentsControl {
 		}
 		return ajaxResult;
 	}
+	
+	@RequestMapping("toAddC.do")
+	private String toAddC(String classid, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		List<Student> list = ss.searchNoClassStu();
+		request.setAttribute("classid", classid);
+		request.setAttribute("NoClassStu", list);
+		return "/WebJsp/Student/StudentOfAddC";
+	}
+	
+	@RequestMapping("doAddC.do")
+	@ResponseBody
+	private AjaxResult doAddC(Student student) {
+		// TODO Auto-generated method stub
+		System.out.println(student);
+		int result = ss.updateStudent(student);
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setTag(result);
+		if(result > 0) {
+			ajaxResult.setMessage("学生已添加至该班级");
+		}else {
+			ajaxResult.setMessage("学生添加至该班级失败");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("toEditC.do")
+	private String toEditC(int id, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		Student cstu = ss.searchById(id);
+		List<Class> classlist = cs.searchAllClass();
+		request.setAttribute("classlist", classlist);
+		request.setAttribute("cstu", cstu);
+		return "/WebJsp/Student/StudentOfEditC";
+	}
+	
+	@RequestMapping("doEditC.do")
+	@ResponseBody
+	private AjaxResult doEditC(Student student) {
+		// TODO Auto-generated method stub
+		System.out.println(student);
+		int result = ss.updateStudent(student);
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setTag(result);
+		if(result > 0) {
+			ajaxResult.setMessage("学生的班级信息修改成功");
+		}else {
+			ajaxResult.setMessage("学生的班级信息修改失败");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("doDelC.do")
+	@ResponseBody
+	private AjaxResult doDelC(int id) {
+		// TODO Auto-generated method stub
+		Student student = new Student();
+		student.setId(id);
+		student.setClassid("");
+		int result = ss.updateStudent(student);
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setTag(result);
+		if(result > 0) {
+			ajaxResult.setMessage("学生的班级信息删除成功");
+		}else {
+			ajaxResult.setMessage("学生的班级信息删除失败");
+		}
+		return ajaxResult;
+	}
 }

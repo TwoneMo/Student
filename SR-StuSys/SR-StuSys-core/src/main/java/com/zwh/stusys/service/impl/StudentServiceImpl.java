@@ -87,4 +87,13 @@ public class StudentServiceImpl implements StudentService {
 		return Mapper.selectByExample(example);
 	}
 
+	@Override
+	public List<Student> searchNoClassStu() {
+		// TODO Auto-generated method stub
+		StudentExample example = new StudentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andClassidEqualTo("");
+		return Mapper.selectByExample(example);
+	}
+
 }

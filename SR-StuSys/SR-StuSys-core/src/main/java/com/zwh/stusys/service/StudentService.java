@@ -25,4 +25,6 @@ public interface StudentService {
 	public Student searchByUid(int uid);
 	
 	public List<Student> searchStudentByClassid(String classid);
+	
+	public List<Student> searchNoClassStu();
 }

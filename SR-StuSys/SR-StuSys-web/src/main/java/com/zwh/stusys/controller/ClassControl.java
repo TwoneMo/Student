@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zwh.stusys.entity.Course;
-import com.zwh.stusys.entity.Student;
 import com.zwh.stusys.entity.Class;
 import com.zwh.stusys.entity.Users;
 import com.zwh.stusys.service.ClassService;
@@ -120,7 +118,7 @@ public class ClassControl {
 	private String toInfo(int id, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		Class myclass = cs.searchById(id);
-		request.setAttribute("class", myclass);
+		request.setAttribute("classid", myclass.getClassid());
 		return "WebJsp/Student/StudentOfShow";
 	}
 }

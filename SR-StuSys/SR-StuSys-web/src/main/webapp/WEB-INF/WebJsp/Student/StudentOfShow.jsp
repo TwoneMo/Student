@@ -34,7 +34,7 @@ function createTableT(){
 		columns:[
 			{data:'sid'},
 			{data:'sname'},
-			{data:'classid'},
+			{data:'myclass.classname'},
 			{data:'id',render:function(data,type,row){
 		        return "<a href='javascript:searchStuByid("+data+");'>查看学生详情</a>"
 		    }}
@@ -42,7 +42,7 @@ function createTableT(){
 	})
 }
 
-function createTableT(){
+function createTableTW(){
 	if(datatable_student!=null){
 		datatable_student.destroy();
 	}
@@ -58,16 +58,17 @@ function createTableT(){
 			url:"${pageContext.request.contextPath}/students/doShowStudent_json.do",
 			dataSrc:"data",
 			data:{
-				"classid":$("#stu_classid").val()
+				"classid":$("#stu_classid").val(),
+				"sname":$("#StuName").val()
 			},
 			type:"post"
 		},
 		columns:[
 			{data:'sid'},
 			{data:'sname'},
-			{data:'classid'},
+			{data:'myclass.classname'},
 			{data:'id',render:function(data,type,row){
-		        return "<a href='javascript:searchStuByid("+data+");'>查看学生详情</a>"
+		        return "<a href='javascript:editCStu("+data+");'>修改</a>    <a href='javascript:delCStu("+data+");'>删除</a>	   <a href='javascript:searchStuByid("+data+");'>查看学生详情</a>    <a href='javascript:addCStu("+data+");'>增加</a>"
 		    }}
 		]
 	})
@@ -108,12 +109,12 @@ function createTable(){
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
 	if(userrid=="003"){
-		$('#btnselect').click(function(){
-			createTableT();
-		});
 		createTableT();
 	} else if (userrid=="004"){
-		
+		$('#Stu_Show_btnselect').click(function(){
+			createTableTW();
+		});
+		createTableTW();
 	}
 });
 
@@ -133,9 +134,9 @@ function searchStuByid(id){
 	})
 }
 
-function delUser(userId){
+function delCStu(id){
 	bootbox.confirm({
-	    message: "是否删除该该用户？",
+	    message: "是否删除该学生的班级信息？",
 	    buttons: {
 	        confirm: {
 	            label: '是',
@@ -148,10 +149,11 @@ function delUser(userId){
 	    },
 	    callback: function (result) {
 	    	if(result){
+	    		alert(id);
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/admin/users/dodel.do",
+	    			url:"${pageContext.request.contextPath}/students/doDelC.do",
 	    			data:{
-	    				"userId":userId
+	    				"id":id
 	    			},
 	    			type:"post",
 	    			dataType:"json",
@@ -172,11 +174,11 @@ function delUser(userId){
 	
 	
 }
-function editUser(userId){
+function editCStu(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toedit.do",
+		url:"${pageContext.request.contextPath}/students/toEditC.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
@@ -192,11 +194,11 @@ function editUser(userId){
 	})
 }
 
-function addUser(userId){
+function addCStu(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toadd.do",
+		url:"${pageContext.request.contextPath}/students/toAddC.do",
 		data:{
-			"userId":userId
+			"classid":$("#stu_classid").val()
 		},
 		type:"post",
 		dataType:"text",
@@ -233,6 +235,26 @@ function addUser(userId){
 </table>
 </c:if>
 
+<c:if test="${myuser.rid=='004' }">
+<form id="framsearch">
+	学生名称：<input id="StuName" type="text" value="">
+	<input id="Stu_Show_btnselect" type="button" value="搜索">
+</form>
+<table id="table_id_example_student" class="display">
+    <thead>
+        <tr>
+        	<td>学生学号</td>
+        	<td>学生名称</td>
+        	<td>所属班级</td>
+        	<td>学生详情</td>
+        </tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+</table>
+</c:if>
+
 <c:if test="${myuser.rid!='002'&&myuser.rid!='003' }">
 <form id="framsearch">
 	用户名称：<input id="userName_s" type="text" value="">
@@ -242,7 +264,7 @@ function addUser(userId){
 			<option value="${r.roleId}">${r.roleName }</option>
 		</c:forEach>
 	</select>
-	<input id="btnselect" type="button" value="搜索">
+	<input id="Stu_Show_btnselect" type="button" value="搜索">
 </form>
 <table id="table_id_example_student" class="display">
     <thead>

@@ -131,7 +131,7 @@ function searchStuByclassid(classid){
 	})
 }
 
-function delClass(userId){
+function delClass(id){
 	bootbox.confirm({
 	    message: "删除该班级将连携删除该班级下的所有学生归属信息，是否删除该该用户？",
 	    buttons: {
@@ -167,8 +167,6 @@ function delClass(userId){
 	    	}
 	    }
 	});
-	
-	
 }
 function editClass(id){
 	$.ajax({
@@ -269,7 +267,7 @@ function ClassInfo(id){
 </table>
 </c:if>
 
-<c:if test="${myuser.rid!='002'&&myuser.rid!='003' }">
+<c:if test="${myuser.rid!='002'&&myuser.rid!='003'&&myuser.rid!='004' }">
 <form id="framsearch">
 	用户名称：<input id="userName_s" type="text" value="">
 	用户角色：<select id="selroleids">
