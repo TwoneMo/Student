@@ -110,6 +110,14 @@ a:active {
 					alert(6);
 			        $("#permission").load("https://www.baidu.com");
 				});
+				$("#jsgl").click(function(){
+					alert(7);
+			        $("#permission").load("https://www.baidu.com");
+				});
+				$("#qxfp").click(function(){
+					alert(8);
+			        $("#permission").load("https://www.baidu.com");
+				});
 		})
 </script>
 <script language="javascript" type="text/javascript">
@@ -148,6 +156,8 @@ a:active {
 				<c:if test="${myuser.rid=='001' }">
 				<div class="meun-title">权限管理</div>
 				<div class="meun-item" href="#permission" data-toggle="tab" id="qxgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_chara_grey.png">权限管理</div>
+				<div class="meun-item" href="#role" data-toggle="tab" id="jsgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_char_grey.png">角色管理</div>
+				<div class="meun-item" href="#rolepermission" data-toggle="tab" id="qxfp"><img src="${pageContext.request.contextPath}/static/ind/images/icon_source.png">权限分配</div>
 				</c:if>
 			
 			</div>
@@ -180,6 +190,14 @@ a:active {
 					</div>
 					<!-- 权限管理模块 -->
 					<div role="tabpanel" class="tab-pane" id="permission">
+						
+					</div>
+					<!-- 角色管理模块 -->
+					<div role="tabpanel" class="tab-pane" id="role">
+						
+					</div>
+					<!-- 权限分配模块 -->
+					<div role="tabpanel" class="tab-pane" id="rolepermission">
 						
 					</div>
 				</div>

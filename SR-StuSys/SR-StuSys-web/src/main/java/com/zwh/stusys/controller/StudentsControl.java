@@ -105,7 +105,7 @@ public class StudentsControl {
 	@RequestMapping("toAddC.do")
 	private String toAddC(String classid, HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		List<Student> list = ss.searchNoClassStu();
+		List<Student> list = ss.searchClassidOfNull();
 		request.setAttribute("classid", classid);
 		request.setAttribute("NoClassStu", list);
 		return "/WebJsp/Student/StudentOfAddC";
@@ -159,8 +159,7 @@ public class StudentsControl {
 		// TODO Auto-generated method stub
 		Student student = new Student();
 		student.setId(id);
-		student.setClassid("");
-		int result = ss.updateStudent(student);
+		int result = ss.setClassidToNull(student);
 		AjaxResult ajaxResult = new AjaxResult();
 		ajaxResult.setTag(result);
 		if(result > 0) {

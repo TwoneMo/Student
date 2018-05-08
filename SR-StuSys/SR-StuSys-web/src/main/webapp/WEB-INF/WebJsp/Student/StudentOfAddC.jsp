@@ -10,7 +10,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#s_c_btn_add").click(function(){
-		if($("#addc_sid").val()=="" && $("#addc_sid").val()=="0"){
+		if($("#addc_id").val()=="" || $("#addc_id").val()=="0"){
 			alert("姓名不能为空！");
 			return false;
 		}
@@ -34,7 +34,7 @@ $(document).ready(function(){
 <form id="formadd_s_c" name="self" method="post" >
 	<div class="form-group">
     <label for="addc_sid">姓名</label>
-    <select class="form-control" class="form-control" id="addc_sid" name="sid" style="width:200px">
+    <select class="form-control" class="form-control" id="addc_id" name="id" style="width:200px">
   		<option value="0">请选择</option>
 		<c:forEach items="${NoClassStu }" var="n">
 			<option value="${n.id}">${n.sname }</option>

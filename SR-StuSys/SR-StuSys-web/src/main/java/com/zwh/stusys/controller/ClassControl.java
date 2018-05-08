@@ -77,7 +77,7 @@ public class ClassControl {
 	private String toEdit(int id, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		Class myclass = cs.searchById(id);
-		request.setAttribute("class", myclass);
+		request.setAttribute("myclass", myclass);
 		return "WebJsp/Class/ClassOfEdit";
 	}
 	

@@ -44,10 +44,10 @@ $(document).ready(function(){
 <body>
 <div style="margin: auto; width: 200px;">
 <form id="form_course_edit" name="courseedit" method="post" >
-	<input type="text" class="form-control" name="id" value="${course.id }" placeholder="Id" style="width: 200px;">
+	<input type="hidden" class="form-control" name="id" value="${course.id }" style="width: 200px;">
 	<div class="form-group">
     <label for="edit_courseid">课程编号</label>
-    <input type="text" class="form-control" id="edit_courseid" name="courseid" value="${course.courseid }" placeholder="Courseid" style="width: 200px;">
+    <input type="text" class="form-control" id="edit_courseid" name="courseid" value="${course.courseid }" readonly="readonly" style="width: 200px;color: black;">
   	</div>
   	<div class="form-group">
     <label for="edit_cname">课程名称</label>

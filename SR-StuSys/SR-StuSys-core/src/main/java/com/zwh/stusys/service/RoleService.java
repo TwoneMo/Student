@@ -14,14 +14,14 @@ public interface RoleService {
 	
 	public Roles searchByTrueId(String rid);
 	
-	public List<Roles> searchAllRolesPage(int start,int length);
+	public List<Roles> searchAllRolesPage(Roles role, int start, int length);
 	
-	public int searchCount();
+	public int searchCount(Roles role);
 	
-	public int addRole();
+	public int addRole(Roles role);
 	
-	public int updateRole();
+	public int updateRole(Roles role);
 	
-	public int deleteRole();
+	public int deleteRole(int id);
 	
 }

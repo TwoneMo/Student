@@ -29,4 +29,8 @@ public interface RolesMapper {
     int updateByPrimaryKeySelective(Roles record);
 
     int updateByPrimaryKey(Roles record);
+    
+    List<Roles> searchAllRoles(@Param("role") Roles record,@Param("start") int start,@Param("length") int length);
+    
+    int searchCount(Roles role);
 }

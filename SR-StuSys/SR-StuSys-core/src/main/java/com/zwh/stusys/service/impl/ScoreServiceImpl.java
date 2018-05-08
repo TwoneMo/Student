@@ -68,7 +68,7 @@ public class ScoreServiceImpl implements ScoreService {
 	@Override
 	public int deleteScore(int id) {
 		// TODO Auto-generated method stub
-		return deleteScore(id);
+		return Mapper.deleteByPrimaryKey(id);
 	}
 
 	@Override

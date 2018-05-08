@@ -100,7 +100,7 @@ function createTableTW(){
 	})
 }
 
-function createTable(){
+function createTableGM(){
 	if(datatable_course!=null){
 		datatable_course.destroy();
 	}
@@ -113,20 +113,19 @@ function createTable(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/score/doShowCourse_json.do",
+			url:"${pageContext.request.contextPath}/course/doShowCourse_json.do",
 			dataSrc:"data",
 			data:{
-				"userName":$("#userName_s").val(),
-				"userRoleid":$("#selroleids").val()
+				"cname":$("#course_show_search_name").val()
 			},
 			type:"post"
 		},
 		columns:[
-			{data:'userName'},
-			{data:'userPassword'},
-			{data:'role.roleName'},
-			{data:'userId',render:function(data,type,row){
-		        return "<a href='javascript:editUser("+data+");'>修改</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:addUser("+data+");'>增加</a>"
+			{data:'cname'},
+			{data:'score'},
+			{data:'credit'},
+			{data:'id',render:function(data,type,row){
+		        return "<a href='javascript:CourseInfo("+data+");'>详情</a>"
 		    }}
 		]
 	})
@@ -143,6 +142,11 @@ $(document).ready( function () {
 			createTableTW();
 		});
 		createTableTW();
+	} else if (userrid=="001"){
+		$('#course_btnselect').click(function(){
+			createTableGM();
+		});
+		createTableGM();
 	}
 });
 
@@ -251,9 +255,9 @@ function CourseInfo(id){
 
 <body>
 <br>
-<input type="text" id="userrid" value="${myuser.rid }" >
+<input type="hidden" id="userrid" value="${myuser.rid }" >
 <c:if test="${myuser.rid=='002' }">
-<input type="text" id="cclassid" name="classid" value="${student.classid }" hidden>
+<input type="hidden" id="cclassid" name="classid" value="${student.classid }">
 <table id="table_id_example_course" class="display">
     <thead>
         <tr>
@@ -270,7 +274,7 @@ function CourseInfo(id){
 </c:if>
 
 <c:if test="${myuser.rid=='003' }">
-<input type="text" id="tid" name="tid" value="${other.tid }" hidden>
+<input type="hidden" id="tid" name="tid" value="${other.tid }">
 <table id="table_id_example_course" class="display">
     <thead>
         <tr>

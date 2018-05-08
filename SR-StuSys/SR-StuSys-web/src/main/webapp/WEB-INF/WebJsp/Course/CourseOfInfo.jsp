@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,12 +40,39 @@ function createTableTW(){
 	})
 }
 
+function createTableGM(){
+	if(datatable_teach!=null){
+		datatable_teach.destroy();
+	}
+	datatable_teach=$('#table_id_example_courseInfo').DataTable({
+		searching:false,
+		ordering:false,
+		language: {
+			url: '${pageContext.request.contextPath}/static/china.json'
+		},
+		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
+		serverSide:true,
+		ajax:{
+			url:"${pageContext.request.contextPath}/teach/doShowTeach_json.do",
+			dataSrc:"data",
+			data:{
+				"courseid":$("#courseinfo_courseid").val()
+			},
+			type:"post"
+		},
+		columns:[
+			{data:'myclass.classname'},
+			{data:'teacher.tname'}
+		]
+	})
+}
+
 $(document).ready( function () {
 	var userrid = $("#courseinfo_user_rid").val();
 	if(userrid=="004"){
 		createTableTW();
-	} else if (userrid!="004"){
-		
+	} else if (userrid=="001"){
+		createTableGM();
 	}
 });
 
@@ -132,9 +160,9 @@ function addTeach(id){
 </script>
 <body>
 <br>
-<input type="text" id="courseinfo_user_rid" value="${myuser.rid }" >
-<input type="text" id="courseinfo_courseid" value="${course.courseid }">
-<a href='javascript:addTeach("+data+");'>增加</a>
+<input type="hidden" id="courseinfo_user_rid" value="${myuser.rid }" >
+<input type="hidden" id="courseinfo_courseid" value="${course.courseid }">
+<c:if test="${myuser.rid=='004' }">
 <table id="table_id_example_courseInfo" class="display">
     <thead>
         <tr>
@@ -147,6 +175,21 @@ function addTeach(id){
     
     </tbody>
 </table>
+<a href='javascript:addTeach("+data+");'>增加</a>
+</c:if>
 
+<c:if test="${myuser.rid=='001' }">
+<table id="table_id_example_courseInfo" class="display">
+    <thead>
+        <tr>
+        	<td>授课班级</td>
+        	<td>授课老师</td>
+        </tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+</table>
+</c:if>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#s_c_btn_edit").click(function(){
-		if($("#editc_classid").val()=="" && $("#editc_classid").val()=="0"){
+		if($("#editc_classid").val()=="" || $("#editc_classid").val()=="0"){
 			alert("班级不能为空！");
 			return false;
 		}

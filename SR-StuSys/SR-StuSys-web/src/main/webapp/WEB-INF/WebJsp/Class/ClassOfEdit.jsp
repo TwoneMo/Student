@@ -36,18 +36,18 @@ $(document).ready(function(){
 <body>
 <div style="margin: auto; width: 200px;">
 <form id="form_class_edit" name="classedit" method="post" >
-	<input type="text" class="form-control" name="id" value="${class.id }" placeholder="Id" style="width: 200px;">
+	<input type="hidden" class="form-control" name="id" value="${myclass.id }" placeholder="Id" style="width: 200px;">
 	<div class="form-group">
     <label for="edit_classid">班级编号</label>
-    <input type="text" class="form-control" id="edit_classid" name="classid" value="${class.classid }" placeholder="Classid" style="width: 200px;">
+    <input type="text" class="form-control" id="edit_classid" name="classid" value="${myclass.classid }" placeholder="Classid" style="width: 200px;">
   	</div>
   	<div class="form-group">
     <label for="edit_classname">班级名称</label>
-    <input type="text" class="form-control" id="edit_classname" name="classname" value="${class.classname }" placeholder="Classname" style="width: 200px;">
+    <input type="text" class="form-control" id="edit_classname" name="classname" value="${myclass.classname }" placeholder="Classname" style="width: 200px;">
   	</div>
   	<div class="form-group">
     <label for="edit_classinfo">班级详情</label>
-    <input type="text" class="form-control" id="edit_classinfo" name="classinfo" value="${class.classinfo }" placeholder="Classinfo" style="width: 200px;">
+    <input type="text" class="form-control" id="edit_classinfo" name="classinfo" value="${myclass.classinfo }" placeholder="Classinfo" style="width: 200px;">
   	</div>
 	<br />
 	<div align="left" style="float:left">

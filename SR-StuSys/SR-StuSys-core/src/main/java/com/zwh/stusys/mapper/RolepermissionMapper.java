@@ -32,4 +32,6 @@ public interface RolepermissionMapper {
     List<Rolepermission> searchAllRolepermissionPage(@Param("rolepermission") Rolepermission rolepermission,@Param("start") int start,@Param("length") int length);
     
     int searchCount(Rolepermission rolepermission);
+    
+    List<Rolepermission> getmypermission(String rid);
 }

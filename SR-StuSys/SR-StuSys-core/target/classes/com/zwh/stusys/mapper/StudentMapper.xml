@@ -109,11 +109,17 @@
     from student
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByTrueKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByTrueKey" parameterType="java.lang.String" resultMap="BaseResultMap2">
     select 
     <include refid="Base_Column_List" />
     from student
     where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <select id="searchClassidOfNull" resultMap="BaseResultMap2">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where classid is null
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from student
@@ -360,6 +366,11 @@
       email = #{email,jdbcType=VARCHAR},
       classid = #{classid,jdbcType=VARCHAR},
       uid = #{uid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="setClassidToNull" parameterType="com.zwh.stusys.entity.Student">
+    update student
+    set classid = null
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

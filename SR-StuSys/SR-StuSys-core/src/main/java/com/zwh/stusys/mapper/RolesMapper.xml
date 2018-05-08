@@ -147,6 +147,28 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  
+  <select id="searchAllRoles" parameterType="map" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from roles
+  <where>
+  	<if test="role!=null and role.rname!=null and role.rname!=''">
+  		rname like '%${role.rname}%'
+  	</if>
+  </where>
+  limit #{start},#{length}
+  </select>
+  
+  <select id="searchCount" parameterType="com.zwh.stusys.entity.Roles" resultType="int">
+  	select count(id) from roles
+  	<where>
+  		<if test="rname!=null and rname!=''">
+  			rname like '%${rname}%'
+  		</if>
+  	</where>
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update roles
     <set>

@@ -30,7 +30,7 @@ public interface PermissionsMapper {
 
     int updateByPrimaryKey(Permissions record);
     
-    List<Permissions> searchAllPermissionsPage(@Param("permissions") Permissions permissions,@Param("start") int start,@Param("end") int end);
+    List<Permissions> searchAllPermissionsPage(@Param("permissions") Permissions permissions,@Param("start") int start,@Param("length") int length);
     
     int searchCount(Permissions permissions);
 }

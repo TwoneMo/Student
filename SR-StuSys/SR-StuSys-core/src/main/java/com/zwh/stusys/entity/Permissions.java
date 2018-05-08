@@ -1,5 +1,7 @@
 package com.zwh.stusys.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Permissions {
     private Integer id;
 
@@ -10,7 +12,7 @@ public class Permissions {
     private String url;
 
     private String parentid;
-
+    @JSONField(name="isParent")
     private String isparent;
 
     private String ismenu;

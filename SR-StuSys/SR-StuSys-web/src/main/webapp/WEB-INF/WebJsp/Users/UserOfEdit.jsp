@@ -39,9 +39,10 @@ $(document).ready(function(){
 <body>
 <div style="margin: auto; width: 200px;">
 	<form id="formedit" name="editpassword" method="post" >
-	<input type="text" class="form-control" name="id" value="${myuser.id }">
-	<input type="text" class="form-control" name="username" value="${myuser.username }">
-	<input type="text" class="form-control" name="rid" value="${myuser.rid }">
+	<input type="hidden" class="form-control" name="id" value="${myuser.id }">
+	<input type="hidden" class="form-control" name="username" value="${myuser.username }">
+	<input type="hidden" class="form-control" name="rid" value="${myuser.rid }">
+	<br><br><br>
   	<div class="form-group">
     <label for="oldpassword">用户旧密码</label>
     <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="OldPassword" style="width: 200px;">

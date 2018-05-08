@@ -46,11 +46,12 @@ $(document).ready(function(){
 });
 </script>
 <body>
+<br><br><br>
 <div style="margin: auto; width: 200px;">
 	<c:if test="${myuser.rid=='002' }">
 	<form id="formadd" name="self" method="post" >
-	<input type="text" class="form-control" name="id" value="${student.id }">
-	<input type="text" class="form-control" name="uid" value="${student.uid }">
+	<input type="hidden" class="form-control" name="id" value="${student.id }">
+	<input type="hidden" class="form-control" name="uid" value="${student.uid }">
 	<div class="form-group">
     <label for="sid">学号</label>
     <input type="text" class="form-control" id="sid" name="sid" value="${student.sid }" placeholder="Sid" readonly="readonly" style="width: 200px;color: black;">
@@ -114,8 +115,8 @@ $(document).ready(function(){
 	
 	<c:if test="${myuser.rid!='002' }">
 	<form id="formadd" name="roleadd" method="post" >
-	<input type="text" class="form-control" name="id" value="${other.id }">
-	<input type="text" class="form-control" name="uid" value="${other.uid }">
+	<input type="hidden" class="form-control" name="id" value="${other.id }">
+	<input type="hidden" class="form-control" name="uid" value="${other.uid }">
 	<div class="form-group">
     <label for="tid">工号</label>
     <input type="text" class="form-control" id="tid" name="tid" value="${other.tid }" placeholder="Tid" readonly="readonly" style="width: 200px;color: black;">
@@ -172,5 +173,6 @@ $(document).ready(function(){
 	</form>
 	</c:if>
 </div>
+<br><br><br>
 </body>
 </html>

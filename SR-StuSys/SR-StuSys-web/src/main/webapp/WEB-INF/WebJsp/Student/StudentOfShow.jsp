@@ -74,7 +74,7 @@ function createTableTW(){
 	})
 }
 
-function createTable(){
+function createTableGM(){
 	if(datatable_student!=null){
 		datatable_student.destroy();
 	}
@@ -87,20 +87,20 @@ function createTable(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/score/doShowCourse_json.do",
+			url:"${pageContext.request.contextPath}/students/doShowStudent_json.do",
 			dataSrc:"data",
 			data:{
-				"userName":$("#userName_s").val(),
-				"userRoleid":$("#selroleids").val()
+				"classid":$("#stu_classid").val(),
+				"sname":$("#StuName").val()
 			},
 			type:"post"
 		},
 		columns:[
-			{data:'userName'},
-			{data:'userPassword'},
-			{data:'role.roleName'},
-			{data:'userId',render:function(data,type,row){
-		        return "<a href='javascript:editUser("+data+");'>修改</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:addUser("+data+");'>增加</a>"
+			{data:'sid'},
+			{data:'sname'},
+			{data:'myclass.classname'},
+			{data:'id',render:function(data,type,row){
+		        return "<a href='javascript:searchStuByid("+data+");'>查看学生详情</a>"
 		    }}
 		]
 	})
@@ -115,6 +115,11 @@ $(document).ready( function () {
 			createTableTW();
 		});
 		createTableTW();
+	} else if (userrid=="001"){
+		$('#Stu_Show_btnselect').click(function(){
+			createTableGM();
+		});
+		createTableGM();
 	}
 });
 
@@ -217,8 +222,9 @@ function addCStu(id){
 
 <body>
 <br>
-<input type="text" id="userrid" value="${myuser.rid }" >
-<input type="text" id="stu_classid" value="${classid }">
+<input type="hidden" id="userrid" value="${myuser.rid }" >
+<input type="hidden" id="stu_classid" value="${classid }">
+
 <c:if test="${myuser.rid=='003' }">
 <table id="table_id_example_student" class="display">
     <thead>
@@ -246,33 +252,28 @@ function addCStu(id){
         	<td>学生学号</td>
         	<td>学生名称</td>
         	<td>所属班级</td>
-        	<td>学生详情</td>
+        	<td>操作</td>
         </tr>
     </thead>
     <tbody>
     
     </tbody>
 </table>
+<a href='javascript:addCStu("+data+");'>增加</a>
 </c:if>
 
-<c:if test="${myuser.rid!='002'&&myuser.rid!='003' }">
+<c:if test="${myuser.rid=='001' }">
 <form id="framsearch">
-	用户名称：<input id="userName_s" type="text" value="">
-	用户角色：<select id="selroleids">
-		<option value="0">请选择</option>
-		<c:forEach items="${roles }" var="r">
-			<option value="${r.roleId}">${r.roleName }</option>
-		</c:forEach>
-	</select>
+	学生名称：<input id="StuName" type="text" value="">
 	<input id="Stu_Show_btnselect" type="button" value="搜索">
 </form>
 <table id="table_id_example_student" class="display">
     <thead>
         <tr>
-        	<td>课程名称</td>
-        	<td>授课老师</td>
-        	<td>课程分数</td>
-        	<td>课程学分</td>
+        	<td>学生学号</td>
+        	<td>学生名称</td>
+        	<td>所属班级</td>
+        	<td>学生详情</td>
         </tr>
     </thead>
     <tbody>

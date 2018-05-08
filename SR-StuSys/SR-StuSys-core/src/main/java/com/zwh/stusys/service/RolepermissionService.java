@@ -2,6 +2,7 @@ package com.zwh.stusys.service;
 
 import java.util.List;
 
+import com.zwh.stusys.entity.Permissions;
 import com.zwh.stusys.entity.Rolepermission;
 
 public interface RolepermissionService {
@@ -20,4 +21,9 @@ public interface RolepermissionService {
 	
 	public int deleteRolepermission(int id);
 	
+	public List<Permissions> selectroleid(String rid);
+	
+	public List<Permissions> getmypermission(String rid);
+	
+	public int dispatchPermission(String[] perids,String rid);
 }

@@ -88,12 +88,15 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> searchNoClassStu() {
+	public int setClassidToNull(Student student) {
 		// TODO Auto-generated method stub
-		StudentExample example = new StudentExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andClassidEqualTo("");
-		return Mapper.selectByExample(example);
+		return Mapper.setClassidToNull(student);
+	}
+
+	@Override
+	public List<Student> searchClassidOfNull() {
+		// TODO Auto-generated method stub
+		return Mapper.searchClassidOfNull();
 	}
 
 }

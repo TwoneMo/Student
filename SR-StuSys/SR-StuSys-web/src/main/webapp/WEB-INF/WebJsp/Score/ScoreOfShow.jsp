@@ -9,13 +9,13 @@
 </head>
 
 <script type="text/javascript">
-var datatable=null;
+var datatable_score=null;
 
 function createTableS(){
-	if(datatable!=null){
-		datatable.destroy();
+	if(datatable_score!=null){
+		datatable_score.destroy();
 	}
-	datatable=$('#table_id_example_score').DataTable({
+	datatable_score=$('#table_id_example_score').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -34,16 +34,17 @@ function createTableS(){
 		columns:[
 			{data:'course.cname'},
 			{data:'course.score'},
-			{data:'score'},
+			{data:'score'}
 		]
 	})
 }
 
 function createTableT(){
-	if(datatable!=null){
-		datatable.destroy();
+	//console.log("${teach}");
+	if(datatable_score!=null){
+		datatable_score.destroy();
 	}
-	datatable=$('#table_id_example_score').DataTable({
+	datatable_score=$('#table_id_example_score').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -64,20 +65,21 @@ function createTableT(){
 		columns:[
 			{data:'sid'},
 			{data:'student.sname'},
+			{data:'student.myclass.classname'},
 			{data:'course.cname'},
 			{data:'score'},
 			{data:'id',render:function(data,type,row){
-		        return "<a href='javascript:addScore("+data+");'>增加</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:editUser("+data+");'>修改</a>"
+		        return "<a href='javascript:editScore("+data+");'>修改</a>    <a href='javascript:delScore("+data+");'>删除</a>    <a href='javascript:addScore("+data+");'>增加</a>"
 		    }}
 		]
 	})
 }
 
-function createTable(){
-	if(datatable!=null){
-		datatable.destroy();
+function createTableGM(){
+	if(datatable_score!=null){
+		datatable_score.destroy();
 	}
-	datatable=$('#table_id_example_score').DataTable({
+	datatable_score=$('#table_id_example_score').DataTable({
 		searching:false,
 		ordering:false,
 		language: {
@@ -86,22 +88,20 @@ function createTable(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/score/doShowCourse_json.do",
+			url:"${pageContext.request.contextPath}/score/doShowScore_jsonOfTea.do",
 			dataSrc:"data",
 			data:{
-				"tid":$("#score_tid").val(),
 				"classid":$("#score_classid").val(),
 				"courseid":$("#score_courseid").val()
 			},
 			type:"post"
 		},
 		columns:[
-			{data:'userName'},
-			{data:'userPassword'},
-			{data:'role.roleName'},
-			{data:'userId',render:function(data,type,row){
-		        return "<a href='javascript:editUser("+data+");'>修改</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:addUser("+data+");'>增加</a>"
-		    }}
+			{data:'sid'},
+			{data:'student.sname'},
+			{data:'student.myclass.classname'},
+			{data:'course.cname'},
+			{data:'score'}
 		]
 	})
 }
@@ -118,41 +118,46 @@ $(document).ready( function () {
 			createTableT();
 		});
 		createTableT();
+	} else if (userrid=="001"||userrid=="004"){
+		$('#btnselect').click(function(){
+			createTableGM();
+		});
+		createTableGM();
 	}
 });
 
-function delUser(userId){
+function delScore(id){
 	bootbox.confirm({
-	    message: "是否删除该该用户？",
+	    message: "是否删除该成绩？",
 	    buttons: {
 	        confirm: {
-	            label: '是',
+	            label: '删除',
 	            className: 'btn-success'
 	        },
 	        cancel: {
-	            label: '否',
+	            label: '取消',
 	            className: 'btn-danger'
 	        }
 	    },
 	    callback: function (result) {
 	    	if(result){
 	    		$.ajax({
-	    			url:"${pageContext.request.contextPath}/admin/users/dodel.do",
+	    			url:"${pageContext.request.contextPath}/score/dodel.do",
 	    			data:{
-	    				"userId":userId
+	    				"id":id
 	    			},
 	    			type:"post",
 	    			dataType:"json",
 	    			success:function(datajson){
 	    				if(datajson.tag==1){
-	    					datatable.draw(1);
+	    					datatable_score.draw(1);
 	    				}else{
 	    					alert(datajson.message)
 	    				}
-	    			},
+	    			}/* ,
 	    			error:function(){
 	    				alert("权限不够，不能访问！");
-	    			}
+	    			} */
 	    		})
 	    	}
 	    }
@@ -160,22 +165,18 @@ function delUser(userId){
 	
 	
 }
-function editUser(userId){
+function editScore(id){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/users/toedit.do",
+		url:"${pageContext.request.contextPath}/score/toedit.do",
 		data:{
-			"userId":userId
+			"id":id
 		},
 		type:"post",
 		dataType:"text",
 		success:function(result){
-			if(result=="<script>alert('权限不够，不能访问！')"){
-				alert("权限不够，不能访问！");
-			}else{
-				bootbox.dialog({
-				    message:result
-				});
-			}
+			bootbox.dialog({
+				   message:result
+			});
 		}
 	})
 }
@@ -199,15 +200,15 @@ function addScore(id){
 
 <body>
 <br>
-<input type="text" id="userrid" value="${myuser.rid }" >
+<input type="hidden" id="userrid" value="${myuser.rid }" >
 <c:if test="${myuser.rid=='002' }">
-<input type="text" id="score_sid" name="sid" value="${student.sid }" hidden>
+<input type="hidden" id="score_sid" name="sid" value="${student.sid }">
 <table id="table_id_example_score" class="display">
     <thead>
         <tr>
         	<td>课程名称</td>
         	<td>课程总分</td>
-        	<td>课程得分</td>
+        	<td>课程得分</td>        	
         </tr>
     </thead>
     <tbody>
@@ -217,7 +218,7 @@ function addScore(id){
 </c:if>
 
 <c:if test="${myuser.rid=='003' }">
-<input type="text" id="score_tid" name="tid" value="${other.tid }" >
+<input type="hidden" id="score_tid" name="tid" value="${other.tid }" >
 <form id="framsearch">
 	班级名称：<select id="score_classid">
 		<option value="0">请选择</option>
@@ -238,6 +239,7 @@ function addScore(id){
         <tr>
         	<td>学生学号</td>
         	<td>学生姓名</td>
+        	<td>学生班级</td>
         	<td>考核科目</td>
         	<td>评定分数</td>
         	<td>操作</td>
@@ -249,13 +251,18 @@ function addScore(id){
 </table>
 </c:if>
 
-<c:if test="${myuser.rid!='002'&&myuser.rid!='003' }">
+<c:if test="${myuser.rid=='001' || myuser.rid=='004' }">
 <form id="framsearch">
-	课程名称：<input id="userName_s" type="text" value="">
-	班级名称：<select id="selroleids">
+	班级名称：<select id="score_classid">
 		<option value="0">请选择</option>
-		<c:forEach items="${roles }" var="r">
-			<option value="${r.roleId}">${r.roleName }</option>
+		<c:forEach items="${allclass }" var="c">
+			<option value="${c.classid}">${c.classname }</option>
+		</c:forEach>
+	</select>
+	课程名称：<select id="score_courseid">
+		<option value="0">请选择</option>
+		<c:forEach items="${allcourse }" var="co">
+			<option value="${co.courseid}">${co.cname }</option>
 		</c:forEach>
 	</select>
 	<input id="btnselect" type="button" value="搜索">
@@ -263,10 +270,11 @@ function addScore(id){
 <table id="table_id_example_score" class="display">
     <thead>
         <tr>
-        	<td>用户名称</td>
-        	<td>用户密码</td>
-        	<td>用户角色</td>
-        	<td>操作</td>
+        	<td>学生学号</td>
+        	<td>学生姓名</td>
+        	<td>学生班级</td>
+        	<td>考核科目</td>
+        	<td>评定分数</td>
         </tr>
     </thead>
     <tbody>

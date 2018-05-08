@@ -57,7 +57,7 @@ function createTableTW(){
 			url:"${pageContext.request.contextPath}/class/doShowClass_json.do",
 			dataSrc:"data",
 			data:{
-				"classname":$("#class_show_classname").val()
+				"classname":$("#class_show_name").val()
 			},
 			type:"post"
 		},
@@ -71,7 +71,7 @@ function createTableTW(){
 	})
 }
 
-function createTable(){
+function createTableGM(){
 	if(datatable_class!=null){
 		datatable_class.destroy();
 	}
@@ -84,20 +84,18 @@ function createTable(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/score/doShowCourse_json.do",
+			url:"${pageContext.request.contextPath}/class/doShowClass_json.do",
 			dataSrc:"data",
 			data:{
-				"userName":$("#userName_s").val(),
-				"userRoleid":$("#selroleids").val()
+				"classname":$("#class_show_name").val()
 			},
 			type:"post"
 		},
 		columns:[
-			{data:'userName'},
-			{data:'userPassword'},
-			{data:'role.roleName'},
-			{data:'userId',render:function(data,type,row){
-		        return "<a href='javascript:editUser("+data+");'>修改</a>    <a href='javascript:delUser("+data+");'>删除</a>    <a href='javascript:addUser("+data+");'>增加</a>"
+			{data:'classname'},
+			{data:'classinfo'},
+			{data:'id',render:function(data,type,row){
+				return "<a href='javascript:ClassInfo("+data+");'>详情</a>"
 		    }}
 		]
 	})
@@ -112,6 +110,11 @@ $(document).ready( function () {
 			createTableTW();
 		});
 		createTableTW();
+	} else if (userrid=="001"){
+		$('#class_btnselect').click(function(){
+			createTableGM();
+		});
+		createTableGM();
 	}
 });
 
@@ -231,7 +234,8 @@ function ClassInfo(id){
 
 <body>
 <br>
-<input type="text" id="userrid" value="${myuser.rid }" >
+<input type="hidden" id="userrid" value="${myuser.rid }" >
+
 <c:if test="${myuser.rid=='003' }">
 <input type="text" id="class_show_tid" name="tid" value="${other.tid }" hidden>
 <table id="table_id_example_class" class="display">
@@ -267,24 +271,17 @@ function ClassInfo(id){
 </table>
 </c:if>
 
-<c:if test="${myuser.rid!='002'&&myuser.rid!='003'&&myuser.rid!='004' }">
+<c:if test="${myuser.rid=='001' }">
 <form id="framsearch">
-	用户名称：<input id="userName_s" type="text" value="">
-	用户角色：<select id="selroleids">
-		<option value="0">请选择</option>
-		<c:forEach items="${roles }" var="r">
-			<option value="${r.roleId}">${r.roleName }</option>
-		</c:forEach>
-	</select>
+	班级名称：<input id="class_show_name" type="text" value="">
 	<input id="class_btnselect" type="button" value="搜索">
 </form>
 <table id="table_id_example_class" class="display">
     <thead>
         <tr>
-        	<td>课程名称</td>
-        	<td>授课老师</td>
-        	<td>课程分数</td>
-        	<td>课程学分</td>
+        	<td>班级名称</td>
+        	<td>班级备注</td>
+        	<td>操作</td>
         </tr>
     </thead>
     <tbody>

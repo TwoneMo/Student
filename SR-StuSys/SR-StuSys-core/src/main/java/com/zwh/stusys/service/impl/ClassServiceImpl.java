@@ -99,10 +99,14 @@ public class ClassServiceImpl implements ClassService {
 			criteria.andClassidEqualTo(myclass.getClassid());
 			List<Student> stu_list = sm.selectByExample(example);
 			if(stu_list != null && stu_list.size() != 0) {
-				Student stu = new Student();
-				stu.setClassid("");
-				int stu_result = sm.updateByExampleSelective(stu, example);
-				if(stu_result > 0) {
+				int flag = 0;
+				for(Student stu : stu_list){
+					int stu_result = sm.setClassidToNull(stu);
+					if(stu_result <= 0){
+						flag = 1;
+					}
+				}
+				if(flag == 0) {
 					return Mapper.deleteByPrimaryKey(id);
 				} else {
 					return -1;

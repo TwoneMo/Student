@@ -34,4 +34,8 @@ public interface StudentMapper {
     List<Student> searchAllstudentsPage(@Param("student") Student student,@Param("start") int start,@Param("length") int length);
     
     int searchCount(Student student);
+    
+    int setClassidToNull(Student student);
+    
+    List<Student> searchClassidOfNull();
 }

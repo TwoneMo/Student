@@ -26,5 +26,7 @@ public interface StudentService {
 	
 	public List<Student> searchStudentByClassid(String classid);
 	
-	public List<Student> searchNoClassStu();
+	public int setClassidToNull(Student student);
+	
+	public List<Student> searchClassidOfNull();
 }

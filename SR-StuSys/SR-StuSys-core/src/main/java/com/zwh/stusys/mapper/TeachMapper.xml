@@ -77,7 +77,7 @@
   <sql id="Base_Column_List">
     id, classid, tid, courseid
   </sql>
-  <select id="selectByExample" parameterType="com.zwh.stusys.entity.TeachExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zwh.stusys.entity.TeachExample" resultMap="BaseResultMap2">
     select
     <if test="distinct">
       distinct
