@@ -148,7 +148,7 @@
     </if>
   </select>
   
-  <select id="searchAllRoles" parameterType="map" resultMap="BaseResultMap">
+  <select id="searchAllRolesPage" parameterType="map" resultMap="BaseResultMap">
   select 
   <include refid="Base_Column_List" />
   from roles

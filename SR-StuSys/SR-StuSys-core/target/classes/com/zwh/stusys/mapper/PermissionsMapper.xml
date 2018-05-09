@@ -198,33 +198,6 @@
   	</where>
   </select>
   
-  <select id="searchAllPermissionsPage" parameterType="map" resultMap="BaseResultMap">
-  select 
-  <include refid="Base_Column_List" />
-  from permissions
-  <where>
-  	<if test="permissions!=null and permissions.pname!=null and permissions.pname!=''">
-  		pname like '%${permissions.pname}%'
-  	</if>
-  	<if test="permissions!=null and permissions.parentid!=null and permissions.parentid!=''">
-  		parentid = #{permissions.parentid}
-  	</if>
-  </where>
-  limit #{start},#{length}
-  </select>
-  
-  <select id="searchCount" parameterType="permissions" resultType="int">
-  	select count(id) from permissions
-  	<where>
-  		<if test="perName!=null and perName!=''">
-  			pname like '%${pname}%'
-  		</if>
-  		<if test="parentid!=null and parentid!=''">
-  			parentid = #{parentid}
-  		</if>
-  	</where>
-  </select>
-  
   <update id="updateByExampleSelective" parameterType="map">
     update permissions
     <set>

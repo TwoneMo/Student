@@ -30,7 +30,7 @@ public interface RolesMapper {
 
     int updateByPrimaryKey(Roles record);
     
-    List<Roles> searchAllRoles(@Param("role") Roles record,@Param("start") int start,@Param("length") int length);
+    List<Roles> searchAllRolesPage(@Param("role") Roles record,@Param("start") int start,@Param("length") int length);
     
     int searchCount(Roles role);
 }

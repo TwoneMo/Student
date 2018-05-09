@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zwh.stusys.entity.ScoreExample;
 import com.zwh.stusys.entity.Student;
 import com.zwh.stusys.entity.StudentExample;
 import com.zwh.stusys.entity.StudentExample.Criteria;
+import com.zwh.stusys.mapper.ScoreMapper;
 import com.zwh.stusys.mapper.StudentMapper;
 import com.zwh.stusys.service.StudentService;
 
@@ -16,6 +18,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentMapper Mapper;
+	
+	@Autowired
+	private ScoreMapper sm;
 	
 	@Override
 	public List<Student> searchAllStudent() {
@@ -66,7 +71,16 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public int deleteStudent(int id) {
 		// TODO Auto-generated method stub
-		return Mapper.deleteByPrimaryKey(id);
+		int result = 0;
+		Student student = Mapper.selectByPrimaryKey(id);
+		ScoreExample example = new ScoreExample();
+		com.zwh.stusys.entity.ScoreExample.Criteria criteria = example.createCriteria();
+		criteria.andSidEqualTo(student.getSid());
+		int sflag = sm.deleteByExample(example);
+		if(sflag > 0) {
+			result = Mapper.deleteByPrimaryKey(id);
+		}
+		return result;
 	}
 
 	@Override

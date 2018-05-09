@@ -22,6 +22,7 @@ import com.zwh.stusys.service.StudentService;
 import com.zwh.stusys.service.TeacherService;
 import com.zwh.stusys.service.UsersService;
 import com.zwh.stusys.utils.AjaxResult;
+import com.zwh.stusys.utils.DataTables;
 
 @Controller
 @RequestMapping("/users/")
@@ -38,6 +39,25 @@ public class UsersControl {
 	
 	@Autowired
 	private TeacherService ts;
+	
+	@RequestMapping("toShowUsers.do")
+	private String toShowCourse() {
+		// TODO Auto-generated method stub
+		return "WebJsp/Users/UserOfShow";
+	}
+	
+	@RequestMapping("doShowUsers_json.do")
+	@ResponseBody
+	private DataTables doShowCourse_json(Users user, int start, int length) {
+		// TODO Auto-generated method stub
+		List<Users> list = us.searchAllUsersPage(user, start, length);
+		int searchCount = us.searchCount(user);
+		DataTables tables = new DataTables();
+		tables.setData(list);
+		tables.setRecordsFiltered(searchCount);
+		tables.setRecordsTotal(searchCount);
+		return tables;
+	}
 	
 	@RequestMapping("tologin.do")
 	public String toLogin() {
@@ -174,6 +194,37 @@ public class UsersControl {
 			ajaxResult.setMessage("修改失败,旧密码错误！");
 		}
 		
+		return ajaxResult;
+	}
+	
+	@RequestMapping("resetPW.do")
+	@ResponseBody
+	private AjaxResult resetPW(int id) {
+		// TODO Auto-generated method stub
+		AjaxResult ajaxResult = new AjaxResult();
+		int result = 0;
+		result = us.resetPW(id);
+		ajaxResult.setTag(result);
+		if(result > 0){
+			ajaxResult.setMessage("密码初始化成功，默认初始密码为：123456");
+		} else {//result==0
+			ajaxResult.setMessage("密码初始化失败");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("dodel.do")
+	@ResponseBody
+	public AjaxResult dodel(int id){
+		int result = 0;
+		AjaxResult ajaxResult = new AjaxResult();
+		result = us.deleteUsers(id);
+		ajaxResult.setTag(result);
+		if(result>0){
+			ajaxResult.setMessage("删除成功");
+		} else {
+			ajaxResult.setMessage("删除失败");
+		}
 		return ajaxResult;
 	}
 }

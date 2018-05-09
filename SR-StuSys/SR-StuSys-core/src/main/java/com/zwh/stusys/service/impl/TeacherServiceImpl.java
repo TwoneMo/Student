@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zwh.stusys.entity.TeachExample;
 import com.zwh.stusys.entity.Teacher;
 import com.zwh.stusys.entity.TeacherExample;
 import com.zwh.stusys.entity.TeacherExample.Criteria;
+import com.zwh.stusys.mapper.TeachMapper;
 import com.zwh.stusys.mapper.TeacherMapper;
 import com.zwh.stusys.service.TeacherService;
 
@@ -16,6 +18,9 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Autowired
 	private TeacherMapper Mapper;
+	
+	@Autowired
+	private TeachMapper tm;
 	
 	@Override
 	public List<Teacher> searchAllTeacher() {
@@ -66,7 +71,16 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public int deleteTeacher(int id) {
 		// TODO Auto-generated method stub
-		return Mapper.deleteByPrimaryKey(id);
+		int result = 0;
+		Teacher teacher = Mapper.selectByPrimaryKey(id);
+		TeachExample example = new TeachExample();
+		com.zwh.stusys.entity.TeachExample.Criteria criteria = example.createCriteria();
+		criteria.andTidEqualTo(teacher.getTid());
+		int tflag = tm.deleteByExample(example);
+		if(tflag > 0) {
+			result = Mapper.deleteByPrimaryKey(id);
+		}
+		return result;
 	}
 
 	@Override

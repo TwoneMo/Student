@@ -48,7 +48,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public List<Roles> searchAllRolesPage(Roles role, int start, int length) {
 		// TODO Auto-generated method stub
-		return Mapper.searchAllRoles(role, start, length);
+		return Mapper.searchAllRolesPage(role, start, length);
 	}
 
 	@Override

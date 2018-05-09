@@ -97,6 +97,9 @@ a:active {
 				$("#mmgl").click(function(){
 			        $("#password0").load("${pageContext.request.contextPath}/users/toEditPassword.do");
 				});
+				$("#yhgl").click(function(){
+			        $("#users").load("${pageContext.request.contextPath}/users/toShowUsers.do");
+				});
 				$("#kcgl").click(function(){
 			        $("#course").load("${pageContext.request.contextPath}/course/toShowCourse.do");
 				});
@@ -147,6 +150,9 @@ a:active {
 				<div class="meun-title">用户管理</div>
 				<div class="meun-item" href="#user" data-toggle="tab" id="jbxx"><img src="${pageContext.request.contextPath}/static/ind/images/icon_card_grey.png">基本信息</div>
 				<div class="meun-item" href="#password0" data-toggle="tab" id="mmgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_rule_grey.png">密码修改</div>
+				<c:if test="${myuser.rid=='001' }">
+				<div class="meun-item" href="#users" data-toggle="tab" id="yhgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_chara_grey.png">用户管理</div>
+				</c:if>
 				<div class="meun-title">教学管理</div>
 				<div class="meun-item" href="#course" data-toggle="tab" id="kcgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_user_grey.png">课程管理</div>
 				<c:if test="${myuser.rid!='002' }">
@@ -174,6 +180,10 @@ a:active {
 					</div>
 					<!-- 密码管理模块 -->
 					<div role="tabpanel" class="tab-pane" id="password0">
+						
+					</div>
+					<!-- 用户管理模块 -->
+					<div role="tabpanel" class="tab-pane" id="users">
 						
 					</div>
 					<!-- 课程管理模块 -->

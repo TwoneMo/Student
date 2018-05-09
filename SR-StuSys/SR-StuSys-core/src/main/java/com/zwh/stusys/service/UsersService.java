@@ -24,4 +24,6 @@ public interface UsersService {
 	
 	public Users searchByname(String name);
 	
+	public int resetPW(int id);
+	
 }
