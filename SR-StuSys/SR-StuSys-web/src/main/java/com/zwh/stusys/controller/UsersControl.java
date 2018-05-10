@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zwh.stusys.entity.Permissions;
 import com.zwh.stusys.entity.Roles;
 import com.zwh.stusys.entity.Users;
+import com.zwh.stusys.service.PermissionService;
 import com.zwh.stusys.service.RoleService;
+import com.zwh.stusys.service.RolepermissionService;
 import com.zwh.stusys.service.StudentService;
 import com.zwh.stusys.service.TeacherService;
 import com.zwh.stusys.service.UsersService;
@@ -39,6 +43,12 @@ public class UsersControl {
 	
 	@Autowired
 	private TeacherService ts;
+	
+	@Autowired
+	private PermissionService ps;
+	
+	@Autowired
+	private RolepermissionService rps;
 	
 	@RequestMapping("toShowUsers.do")
 	private String toShowCourse() {
@@ -77,10 +87,9 @@ public class UsersControl {
 			String name = null;
 			if(myuser!=null) {
 				name = myuser.getUsername();				
-			} else if(sUsername!=null){
+			} else if(sUsername!=null&&!sUsername.equals("")){
 				name = sUsername;
 			}
-			
 			try {
 				name = URLEncoder.encode(name,"UTF-8");
 			} catch (UnsupportedEncodingException e) {
@@ -103,14 +112,14 @@ public class UsersControl {
 			}
 			response.addCookie(cookie);
 			
-			/*user = myuser;
-			List<Permission> list = ps.getmypermission(user.getUserRoleid());
-			session.setAttribute("permission", list);
+			List<Permissions> list = rps.getmypermission(myuser.getRid());
+			session.setAttribute("mypermission", list);
 			
 			ServletContext application = session.getServletContext();
-			List<Permissions> allPermission = ps.selectAll();
-			application.setAttribute("allPermission", allPermission);*/
-			
+			List<Permissions> allPermission = ps.searchAllPermissions();
+			application.setAttribute("allPermission", allPermission);
+			System.out.println("allPermission"+application.getAttribute("allPermission"));
+			//System.out.println("slk;daflk;ajsd"+session.getAttribute("sUsername"));
 			return "WebJsp/index";
 		} else {
 			out.print("<script>alert('对不起，用户名或密码错误！');history.go(-1);</script>");

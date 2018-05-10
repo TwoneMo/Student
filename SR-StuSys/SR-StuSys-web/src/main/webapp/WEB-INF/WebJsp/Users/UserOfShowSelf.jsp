@@ -62,7 +62,7 @@ $(document).ready(function(){
   	</div>
   	<div class="form-group">
     <label for="rid">身份</label>
-    <input type="text" class="form-control" name="rid" value="${myuser.role.rid }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
+    <input type="hidden" class="form-control" name="rid" value="${myuser.role.rid }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
     <input type="text" class="form-control" id="rid" value="${myuser.role.rname }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
   	</div>
   	<div class="form-group">
@@ -127,7 +127,7 @@ $(document).ready(function(){
   	</div>
   	<div class="form-group">
     <label for="rid">身份</label>
-    <input type="text" class="form-control" name="rid" value="${myuser.role.rid }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
+    <input type="hidden" class="form-control" name="rid" value="${myuser.role.rid }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
     <input type="text" class="form-control" id="rid" value="${myuser.role.rname }" placeholder="Rid" readonly="readonly" style="width: 200px;color: black;">
   	</div>
   	<div class="form-group">

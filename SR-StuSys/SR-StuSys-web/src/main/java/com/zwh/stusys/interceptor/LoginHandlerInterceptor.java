@@ -46,12 +46,13 @@ public class LoginHandlerInterceptor implements HandlerInterceptor{
 		System.out.println("-------------preHandle----------");
 		ServletContext application = request.getSession().getServletContext();
 		HttpSession session = request.getSession();
-		List<Permissions> permission= (List<Permissions>) session.getAttribute("permission");
-		System.out.println(permission+"-------------------------------------------");
+		List<Permissions> permission= (List<Permissions>) session.getAttribute("mypermission");
+		System.out.println(permission+"----------------------permission---------------------");
 		List<Permissions> allPermission= (List<Permissions>) application.getAttribute("allPermission");
-		System.out.println(allPermission+"/////////////////////////////////////////");
+		System.out.println(allPermission+"---------------------allPermission----------------------");
 		if(permission!=null&&allPermission!=null){
 			for (Permissions permission1 : allPermission) {
+				System.out.println("request:"+request.getRequestURI());
 				if(permission1.getUrl().trim().equals(request.getRequestURI())){
 					for (Permissions permission2 : permission) {
 						if(permission2.getUrl().trim().equals(request.getRequestURI())){

@@ -19,6 +19,10 @@ $(document).ready(function(){
 			alert("用户密码不能为空！");
 			return false;
 		}
+		if($("#rid").val()==""||$("#rid").val()=="0"){
+			alert("角色不能为空！");
+			return false;
+		}
 		$.ajax({
 			url:"${pageContext.request.contextPath }/users/doCreateAccount.do",
 			type:"post",

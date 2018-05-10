@@ -128,6 +128,7 @@ function searchStuByclassid(classid){
 		dataType:"text",
 		success:function(result){
 				bootbox.dialog({
+					title:"班级详情",
 				    message:result
 				});
 		}
@@ -184,6 +185,7 @@ function editClass(id){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"班级修改",
 				    message:result
 				});
 			}
@@ -204,6 +206,7 @@ function addClass(id){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"班级新增",
 				    message:result
 				});
 			}

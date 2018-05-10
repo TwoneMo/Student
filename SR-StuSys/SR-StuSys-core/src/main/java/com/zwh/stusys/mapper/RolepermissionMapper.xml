@@ -168,7 +168,7 @@
   </select>
   
   <select id="getmypermission" parameterType="String" resultMap="BaseResultMap2">
-  	select * from role_permission where rid=#{rid}
+  	select * from rolepermission where rid=#{rid}
   </select>
   
   <update id="updateByExampleSelective" parameterType="map">

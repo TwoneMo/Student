@@ -109,17 +109,17 @@ function createTableGM(){
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
 	if(userrid=="002"){
-		$('#btnselect').click(function(){
+		$('#btnselect_score_show').click(function(){
 			createTableS();
 		});
 		createTableS();
 	} else if (userrid=="003"){
-		$('#btnselect').click(function(){
+		$('#btnselect_score_show').click(function(){
 			createTableT();
 		});
 		createTableT();
 	} else if (userrid=="001"||userrid=="004"){
-		$('#btnselect').click(function(){
+		$('#btnselect_score_show').click(function(){
 			createTableGM();
 		});
 		createTableGM();
@@ -175,7 +175,8 @@ function editScore(id){
 		dataType:"text",
 		success:function(result){
 			bootbox.dialog({
-				   message:result
+				title:"成绩修改",
+				message:result
 			});
 		}
 	})
@@ -191,6 +192,7 @@ function addScore(id){
 		dataType:"text",
 		success:function(result){
 			bootbox.dialog({
+				title:"成绩新增",
 			    message:result
 			});
 		}
@@ -232,7 +234,7 @@ function addScore(id){
 			<option value="${t.course.courseid}">${t.course.cname }</option>
 		</c:forEach>
 	</select>
-	<input id="btnselect" type="button" value="搜索">
+	<input id="btnselect_score_show" type="button" value="搜索">
 </form>
 <table id="table_id_example_score" class="display">
     <thead>
@@ -265,7 +267,7 @@ function addScore(id){
 			<option value="${co.courseid}">${co.cname }</option>
 		</c:forEach>
 	</select>
-	<input id="btnselect" type="button" value="搜索">
+	<input id="btnselect_score_show" type="button" value="搜索">
 </form>
 <table id="table_id_example_score" class="display">
     <thead>

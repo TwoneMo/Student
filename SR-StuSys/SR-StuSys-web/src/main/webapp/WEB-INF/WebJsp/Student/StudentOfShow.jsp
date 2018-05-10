@@ -133,6 +133,7 @@ function searchStuByid(id){
 		dataType:"text",
 		success:function(result){
 			bootbox.dialog({
+				title:"学生详情",
 			    message:result
 			});
 		}
@@ -192,6 +193,7 @@ function editCStu(id){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"学生班级修改",
 				    message:result
 				});
 			}
@@ -212,6 +214,7 @@ function addCStu(id){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
+					title:"学生班级新增",
 				    message:result
 				});
 			}

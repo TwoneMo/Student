@@ -85,12 +85,12 @@ public class RoleServiceImpl implements RoleService {
 		List<Roles> list = Mapper.selectByExample(example);
 		if(list != null && list.size() != 0){
 			if(list.get(0).getId().equals(role.getId())){
-				result = Mapper.insert(role);
+				result = Mapper.updateByPrimaryKeySelective(role);
 			} else {
 				result = -1;
 			}
 		} else {
-			result = Mapper.insert(role);
+			result = Mapper.updateByPrimaryKeySelective(role);
 		}
 		return result;
 	}

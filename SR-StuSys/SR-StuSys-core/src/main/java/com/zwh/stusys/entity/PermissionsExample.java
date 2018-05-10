@@ -384,62 +384,52 @@ public class PermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentidEqualTo(String value) {
+        public Criteria andParentidEqualTo(Integer value) {
             addCriterion("parentid =", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidNotEqualTo(String value) {
+        public Criteria andParentidNotEqualTo(Integer value) {
             addCriterion("parentid <>", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidGreaterThan(String value) {
+        public Criteria andParentidGreaterThan(Integer value) {
             addCriterion("parentid >", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidGreaterThanOrEqualTo(String value) {
+        public Criteria andParentidGreaterThanOrEqualTo(Integer value) {
             addCriterion("parentid >=", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidLessThan(String value) {
+        public Criteria andParentidLessThan(Integer value) {
             addCriterion("parentid <", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidLessThanOrEqualTo(String value) {
+        public Criteria andParentidLessThanOrEqualTo(Integer value) {
             addCriterion("parentid <=", value, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidLike(String value) {
-            addCriterion("parentid like", value, "parentid");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentidNotLike(String value) {
-            addCriterion("parentid not like", value, "parentid");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentidIn(List<String> values) {
+        public Criteria andParentidIn(List<Integer> values) {
             addCriterion("parentid in", values, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidNotIn(List<String> values) {
+        public Criteria andParentidNotIn(List<Integer> values) {
             addCriterion("parentid not in", values, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidBetween(String value1, String value2) {
+        public Criteria andParentidBetween(Integer value1, Integer value2) {
             addCriterion("parentid between", value1, value2, "parentid");
             return (Criteria) this;
         }
 
-        public Criteria andParentidNotBetween(String value1, String value2) {
+        public Criteria andParentidNotBetween(Integer value1, Integer value2) {
             addCriterion("parentid not between", value1, value2, "parentid");
             return (Criteria) this;
         }
@@ -454,62 +444,52 @@ public class PermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsparentEqualTo(String value) {
+        public Criteria andIsparentEqualTo(Integer value) {
             addCriterion("isparent =", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentNotEqualTo(String value) {
+        public Criteria andIsparentNotEqualTo(Integer value) {
             addCriterion("isparent <>", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentGreaterThan(String value) {
+        public Criteria andIsparentGreaterThan(Integer value) {
             addCriterion("isparent >", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentGreaterThanOrEqualTo(String value) {
+        public Criteria andIsparentGreaterThanOrEqualTo(Integer value) {
             addCriterion("isparent >=", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentLessThan(String value) {
+        public Criteria andIsparentLessThan(Integer value) {
             addCriterion("isparent <", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentLessThanOrEqualTo(String value) {
+        public Criteria andIsparentLessThanOrEqualTo(Integer value) {
             addCriterion("isparent <=", value, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentLike(String value) {
-            addCriterion("isparent like", value, "isparent");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsparentNotLike(String value) {
-            addCriterion("isparent not like", value, "isparent");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsparentIn(List<String> values) {
+        public Criteria andIsparentIn(List<Integer> values) {
             addCriterion("isparent in", values, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentNotIn(List<String> values) {
+        public Criteria andIsparentNotIn(List<Integer> values) {
             addCriterion("isparent not in", values, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentBetween(String value1, String value2) {
+        public Criteria andIsparentBetween(Integer value1, Integer value2) {
             addCriterion("isparent between", value1, value2, "isparent");
             return (Criteria) this;
         }
 
-        public Criteria andIsparentNotBetween(String value1, String value2) {
+        public Criteria andIsparentNotBetween(Integer value1, Integer value2) {
             addCriterion("isparent not between", value1, value2, "isparent");
             return (Criteria) this;
         }
@@ -524,62 +504,52 @@ public class PermissionsExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuEqualTo(String value) {
+        public Criteria andIsmenuEqualTo(Integer value) {
             addCriterion("ismenu =", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuNotEqualTo(String value) {
+        public Criteria andIsmenuNotEqualTo(Integer value) {
             addCriterion("ismenu <>", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuGreaterThan(String value) {
+        public Criteria andIsmenuGreaterThan(Integer value) {
             addCriterion("ismenu >", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuGreaterThanOrEqualTo(String value) {
+        public Criteria andIsmenuGreaterThanOrEqualTo(Integer value) {
             addCriterion("ismenu >=", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuLessThan(String value) {
+        public Criteria andIsmenuLessThan(Integer value) {
             addCriterion("ismenu <", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuLessThanOrEqualTo(String value) {
+        public Criteria andIsmenuLessThanOrEqualTo(Integer value) {
             addCriterion("ismenu <=", value, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuLike(String value) {
-            addCriterion("ismenu like", value, "ismenu");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsmenuNotLike(String value) {
-            addCriterion("ismenu not like", value, "ismenu");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsmenuIn(List<String> values) {
+        public Criteria andIsmenuIn(List<Integer> values) {
             addCriterion("ismenu in", values, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuNotIn(List<String> values) {
+        public Criteria andIsmenuNotIn(List<Integer> values) {
             addCriterion("ismenu not in", values, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuBetween(String value1, String value2) {
+        public Criteria andIsmenuBetween(Integer value1, Integer value2) {
             addCriterion("ismenu between", value1, value2, "ismenu");
             return (Criteria) this;
         }
 
-        public Criteria andIsmenuNotBetween(String value1, String value2) {
+        public Criteria andIsmenuNotBetween(Integer value1, Integer value2) {
             addCriterion("ismenu not between", value1, value2, "ismenu");
             return (Criteria) this;
         }

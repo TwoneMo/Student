@@ -6,9 +6,9 @@
     <result column="pid" jdbcType="VARCHAR" property="pid" />
     <result column="pname" jdbcType="VARCHAR" property="pname" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="parentid" jdbcType="VARCHAR" property="parentid" />
-    <result column="isparent" jdbcType="VARCHAR" property="isparent" />
-    <result column="ismenu" jdbcType="VARCHAR" property="ismenu" />
+    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="isparent" jdbcType="INTEGER" property="isparent" />
+    <result column="ismenu" jdbcType="INTEGER" property="ismenu" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -115,7 +115,7 @@
       parentid, isparent, ismenu
       )
     values (#{pid,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{parentid,jdbcType=VARCHAR}, #{isparent,jdbcType=VARCHAR}, #{ismenu,jdbcType=VARCHAR}
+      #{parentid,jdbcType=INTEGER}, #{isparent,jdbcType=INTEGER}, #{ismenu,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.stusys.entity.Permissions">
@@ -154,13 +154,13 @@
         #{url,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null">
-        #{parentid,jdbcType=VARCHAR},
+        #{parentid,jdbcType=INTEGER},
       </if>
       <if test="isparent != null">
-        #{isparent,jdbcType=VARCHAR},
+        #{isparent,jdbcType=INTEGER},
       </if>
       <if test="ismenu != null">
-        #{ismenu,jdbcType=VARCHAR},
+        #{ismenu,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -176,10 +176,10 @@
   <include refid="Base_Column_List" />
   from permissions
   <where>
-  	<if test="permissions!=null and permissions.pname!=null and permission.pname!=''">
+  	<if test="permissions!=null and permissions.pname!=null and permissions.pname!=''">
   		pname like '%${permissions.pname}%'
   	</if>
-  	<if test="permissions!=null and permissions.parentid!=null and permission.parentid!=''">
+  	<if test="permissions!=null and permissions.parentid!=null and permissions.parentid!=''">
   		and parentid = #{permissions.parentid}
   	</if>
   </where>
@@ -214,13 +214,13 @@
         url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.parentid != null">
-        parentid = #{record.parentid,jdbcType=VARCHAR},
+        parentid = #{record.parentid,jdbcType=INTEGER},
       </if>
       <if test="record.isparent != null">
-        isparent = #{record.isparent,jdbcType=VARCHAR},
+        isparent = #{record.isparent,jdbcType=INTEGER},
       </if>
       <if test="record.ismenu != null">
-        ismenu = #{record.ismenu,jdbcType=VARCHAR},
+        ismenu = #{record.ismenu,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -233,9 +233,9 @@
       pid = #{record.pid,jdbcType=VARCHAR},
       pname = #{record.pname,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
-      parentid = #{record.parentid,jdbcType=VARCHAR},
-      isparent = #{record.isparent,jdbcType=VARCHAR},
-      ismenu = #{record.ismenu,jdbcType=VARCHAR}
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      isparent = #{record.isparent,jdbcType=INTEGER},
+      ismenu = #{record.ismenu,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -253,13 +253,13 @@
         url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null">
-        parentid = #{parentid,jdbcType=VARCHAR},
+        parentid = #{parentid,jdbcType=INTEGER},
       </if>
       <if test="isparent != null">
-        isparent = #{isparent,jdbcType=VARCHAR},
+        isparent = #{isparent,jdbcType=INTEGER},
       </if>
       <if test="ismenu != null">
-        ismenu = #{ismenu,jdbcType=VARCHAR},
+        ismenu = #{ismenu,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -269,9 +269,9 @@
     set pid = #{pid,jdbcType=VARCHAR},
       pname = #{pname,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=VARCHAR},
-      isparent = #{isparent,jdbcType=VARCHAR},
-      ismenu = #{ismenu,jdbcType=VARCHAR}
+      parentid = #{parentid,jdbcType=INTEGER},
+      isparent = #{isparent,jdbcType=INTEGER},
+      ismenu = #{ismenu,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

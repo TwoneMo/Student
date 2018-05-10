@@ -43,7 +43,7 @@ function createTableGM(){
 
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
-	if (userrid=="004"){
+	if (userrid=="001"){
 		$('#btnselect').click(function(){
 			createTableGM();
 		});
@@ -79,31 +79,53 @@ function delUser(id){
 	    				}else{
 	    					alert(datajson.message)
 	    				}
-	    			}/* ,
+	    			} ,
 	    			error:function(){
 	    				alert("权限不够，不能访问！");
-	    			} */
+	    			} 
 	    		})
 	    	}
 	    }
 	});
-	
-	
 }
+
 function resetPW(id){
-	$.ajax({
-		url:"${pageContext.request.contextPath}/users/resetPW.do",
-		data:{
-			"id":id
-		},
-		type:"post",
-		dataType:"text",
-		success:function(result){
-			bootbox.dialog({
-				   message:result
-			});
-		}
-	})
+	bootbox.confirm({
+	    message: "是否初始化该用户的密码？",
+	    buttons: {
+	        confirm: {
+	            label: '重置',
+	            className: 'btn-success'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-danger'
+	        }
+	    },
+	    callback: function (result) {
+	    	if(result){
+	    		$.ajax({
+	    			url:"${pageContext.request.contextPath}/users/resetPW.do",
+	    			data:{
+	    				"id":id
+	    			},
+	    			type:"post",
+	    			dataType:"json",
+	    			success:function(datajson){
+	    				if(datajson.tag==1){
+	    					alert(datajson.message);
+	    					datatable_users.draw(1);
+	    				}else{
+	    					alert(datajson.message)
+	    				}
+	    			} ,
+	    			error:function(){
+	    				alert("权限不够，不能访问！");
+	    			} 
+	    		})
+	    	}
+	    }
+	});
 }
 
 function addUser(id){
@@ -116,6 +138,7 @@ function addUser(id){
 		dataType:"text",
 		success:function(result){
 			bootbox.dialog({
+				title:"用户新增",
 			    message:result
 			});
 		}

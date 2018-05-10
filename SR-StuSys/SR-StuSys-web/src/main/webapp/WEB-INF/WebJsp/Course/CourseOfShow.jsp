@@ -223,7 +223,7 @@ function addCourse(id){
 				alert("权限不够，不能访问！");
 			}else{
 				bootbox.dialog({
-					title:"课程添加",
+					title:"课程新增",
 				    message:result
 				});
 			}

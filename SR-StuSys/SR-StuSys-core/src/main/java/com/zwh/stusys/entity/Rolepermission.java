@@ -8,8 +8,18 @@ public class Rolepermission {
     private String pid;
     
     private Permissions permissions;
+    
+    private Roles roles;
 
-    public Integer getId() {
+    public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
+
+	public Integer getId() {
         return id;
     }
 

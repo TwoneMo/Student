@@ -28,6 +28,13 @@
 <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/bootbox.min.js"></script>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/zTree_v3/css/demo.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!--  <script type="text/javascript" src="${pageContext.request.contextPath}/static/zTree_v3/js/jquery-1.4.4.min.js"></script>-->
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/zTree_v3/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/zTree_v3/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/zTree_v3/js/jquery.ztree.exedit.js"></script>
+
 <style type="text/css">
 a:link {
  text-decoration: none;
@@ -110,17 +117,12 @@ a:active {
 			        $("#score").load("${pageContext.request.contextPath}/score/toShowScore.do");
 				});
 				$("#qxgl").click(function(){
-					alert(6);
-			        $("#permission").load("https://www.baidu.com");
+			        $("#permission").load("${pageContext.request.contextPath}/permission/doshow.do");
 				});
 				$("#jsgl").click(function(){
-					alert(7);
-			        $("#permission").load("https://www.baidu.com");
+			        $("#role").load("${pageContext.request.contextPath}/roles/toShow.do");
 				});
-				$("#qxfp").click(function(){
-					alert(8);
-			        $("#permission").load("https://www.baidu.com");
-				});
+
 		})
 </script>
 <script language="javascript" type="text/javascript">
@@ -151,7 +153,7 @@ a:active {
 				<div class="meun-item" href="#user" data-toggle="tab" id="jbxx"><img src="${pageContext.request.contextPath}/static/ind/images/icon_card_grey.png">基本信息</div>
 				<div class="meun-item" href="#password0" data-toggle="tab" id="mmgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_rule_grey.png">密码修改</div>
 				<c:if test="${myuser.rid=='001' }">
-				<div class="meun-item" href="#users" data-toggle="tab" id="yhgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_chara_grey.png">用户管理</div>
+				<div class="meun-item" href="#users" data-toggle="tab" id="yhgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_source.png">用户管理</div>
 				</c:if>
 				<div class="meun-title">教学管理</div>
 				<div class="meun-item" href="#course" data-toggle="tab" id="kcgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_user_grey.png">课程管理</div>
@@ -163,7 +165,6 @@ a:active {
 				<div class="meun-title">权限管理</div>
 				<div class="meun-item" href="#permission" data-toggle="tab" id="qxgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_chara_grey.png">权限管理</div>
 				<div class="meun-item" href="#role" data-toggle="tab" id="jsgl"><img src="${pageContext.request.contextPath}/static/ind/images/icon_char_grey.png">角色管理</div>
-				<div class="meun-item" href="#rolepermission" data-toggle="tab" id="qxfp"><img src="${pageContext.request.contextPath}/static/ind/images/icon_source.png">权限分配</div>
 				</c:if>
 			
 			</div>
@@ -172,6 +173,8 @@ a:active {
 				<a class="toggle-btn" id="nimei">
 					<i class="glyphicon glyphicon-align-justify"></i>
 				</a>
+				<br>
+				<br>
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<!-- 基本信息模块 -->
@@ -204,10 +207,6 @@ a:active {
 					</div>
 					<!-- 角色管理模块 -->
 					<div role="tabpanel" class="tab-pane" id="role">
-						
-					</div>
-					<!-- 权限分配模块 -->
-					<div role="tabpanel" class="tab-pane" id="rolepermission">
 						
 					</div>
 				</div>

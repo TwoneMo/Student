@@ -25,5 +25,5 @@ public interface RolepermissionService {
 	
 	public List<Permissions> getmypermission(String rid);
 	
-	public int dispatchPermission(String[] perids,String rid);
+	public int dispatchPermission(int[] pids,String rid);
 }

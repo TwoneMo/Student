@@ -22,8 +22,8 @@ public interface PermissionService {
 	
 	public int deletePermissions(int id);
 	
-	public List<Permissions> getPermissionByParentid(String parentid);
+	public List<Permissions> getPermissionByParentid(int parentid);
 	
-	public int movePermission(int id,String oldParentid,String newParentid);
+	public int movePermission(int id,int oldParentid,int newParentid);
 	
 }

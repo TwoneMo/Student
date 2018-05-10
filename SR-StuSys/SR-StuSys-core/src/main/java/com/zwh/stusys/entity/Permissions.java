@@ -11,11 +11,12 @@ public class Permissions {
 
     private String url;
 
-    private String parentid;
-    @JSONField(name="isParent")
-    private String isparent;
+    private Integer parentid;
 
-    private String ismenu;
+    @JSONField(name="isParent")
+    private Integer isparent;
+
+    private Integer ismenu;
     
     private boolean checked=false;
 
@@ -51,28 +52,28 @@ public class Permissions {
         this.url = url == null ? null : url.trim();
     }
 
-    public String getParentid() {
+    public Integer getParentid() {
         return parentid;
     }
 
-    public void setParentid(String parentid) {
-        this.parentid = parentid == null ? null : parentid.trim();
+    public void setParentid(Integer parentid) {
+        this.parentid = parentid;
     }
 
-    public String getIsparent() {
+    public Integer getIsparent() {
         return isparent;
     }
 
-    public void setIsparent(String isparent) {
-        this.isparent = isparent == null ? null : isparent.trim();
+    public void setIsparent(Integer isparent) {
+        this.isparent = isparent;
     }
 
-    public String getIsmenu() {
+    public Integer getIsmenu() {
         return ismenu;
     }
 
-    public void setIsmenu(String ismenu) {
-        this.ismenu = ismenu == null ? null : ismenu.trim();
+    public void setIsmenu(Integer ismenu) {
+        this.ismenu = ismenu;
     }
     
     public boolean isChecked() {

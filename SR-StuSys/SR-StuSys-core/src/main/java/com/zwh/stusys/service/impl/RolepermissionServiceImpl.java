@@ -92,7 +92,7 @@ public class RolepermissionServiceImpl implements RolepermissionService {
 	}
 
 	@Override
-	public int dispatchPermission(String[] perids, String rid) {
+	public int dispatchPermission(int[] pids, String rid) {
 		// TODO Auto-generated method stub
 		RolepermissionExample example = new RolepermissionExample();
 		Criteria criteria = example.createCriteria();
@@ -100,9 +100,10 @@ public class RolepermissionServiceImpl implements RolepermissionService {
 		int result = -1;
 		result = Mapper.deleteByExample(example);
 		if(result >= 0){
-			for(int i=0; i < perids.length; i++){
+			for(int i=0; i < pids.length; i++){
 				Rolepermission rp = new Rolepermission();
-				rp.setPid(perids[i]);;
+				Permissions per = pm.selectByPrimaryKey(pids[i]);
+				rp.setPid(per.getPid());
 				rp.setRid(rid);
 				result=Mapper.insert(rp);
 			}

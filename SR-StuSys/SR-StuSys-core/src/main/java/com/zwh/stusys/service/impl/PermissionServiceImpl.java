@@ -66,9 +66,9 @@ public class PermissionServiceImpl implements PermissionService{
 		} else {
 			result = Mapper.insert(permission);
 			if(result > 0){
-				Permissions parentPermission = Mapper.selectByTrueKey(permission.getParentid());
-				if(parentPermission != null && parentPermission.getIsparent().equals("0")){
-					parentPermission.setIsparent("1");
+				Permissions parentPermission = Mapper.selectByPrimaryKey(permission.getParentid());
+				if(parentPermission != null && parentPermission.getIsparent() == 0){
+					parentPermission.setIsparent(1);
 					result = Mapper.updateByPrimaryKey(parentPermission);
 				}
 			}
@@ -86,12 +86,12 @@ public class PermissionServiceImpl implements PermissionService{
 		List<Permissions> list = Mapper.selectByExample(example);
 		if(list != null && list.size() > 0) {
 			if(list.get(0).getId().equals(permission.getId())) {
-				result = Mapper.updateByPrimaryKey(permission);
+				result = Mapper.updateByPrimaryKeySelective(permission);
 			} else {
 				result = -1;
 			}
 		} else {
-			result = Mapper.updateByPrimaryKey(permission);
+			result = Mapper.updateByPrimaryKeySelective(permission);
 		}
 		return result;
 	}
@@ -108,27 +108,27 @@ public class PermissionServiceImpl implements PermissionService{
 		if(list != null && list.size() > 0){
 			return -1;
 		} else {
-			String perParentid = permissions.getParentid();
+			Integer parentid = permissions.getParentid();
 			result = Mapper.deleteByPrimaryKey(id);
 			if(result > 0){
 				PermissionsExample example2 = new PermissionsExample();
 				Criteria criteria2 = example2.createCriteria();
-				criteria2.andParentidEqualTo(perParentid);
+				criteria2.andParentidEqualTo(parentid);
 				long count = Mapper.countByExample(example2);
 				if(count == 0){
-					Permissions parentPermission = Mapper.selectByTrueKey(perParentid);
+					Permissions parentPermission = Mapper.selectByPrimaryKey(parentid);
 					if(parentPermission != null){
-						parentPermission.setIsparent("0");
-						Mapper.updateByPrimaryKey(parentPermission);
+						parentPermission.setIsparent(0);
+						result = Mapper.updateByPrimaryKey(parentPermission);
 					}
 				}
 			}
 		}
-		return Mapper.deleteByPrimaryKey(id);
+		return result;
 	}
 
 	@Override
-	public List<Permissions> getPermissionByParentid(String parentid) {
+	public List<Permissions> getPermissionByParentid(int parentid) {
 		// TODO Auto-generated method stub
 		PermissionsExample example = new PermissionsExample();
 		Criteria criteria = example.createCriteria();
@@ -137,7 +137,7 @@ public class PermissionServiceImpl implements PermissionService{
 	}
 
 	@Override
-	public int movePermission(int id, String oldParentid, String newParentid) {
+	public int movePermission(int id, int oldParentid, int newParentid) {
 		// TODO Auto-generated method stub
 		Permissions permission = Mapper.selectByPrimaryKey(id);
 		permission.setParentid(newParentid);
@@ -149,13 +149,13 @@ public class PermissionServiceImpl implements PermissionService{
 			criteria.andParentidEqualTo(oldParentid);
 			long count = Mapper.countByExample(example);
 			if(count == 0){
-				Permissions oldpermission = Mapper.selectByTrueKey(oldParentid);
-				oldpermission.setIsparent("0");
+				Permissions oldpermission = Mapper.selectByPrimaryKey(oldParentid);
+				oldpermission.setIsparent(0);
 				Mapper.updateByPrimaryKey(oldpermission);
 			}
-			Permissions newpermission = Mapper.selectByTrueKey(newParentid);
-			if(newpermission != null && newpermission.getIsparent().equals("0")){
-				newpermission.setIsparent("1");
+			Permissions newpermission = Mapper.selectByPrimaryKey(newParentid);
+			if(newpermission != null && newpermission.getIsparent() == 0){
+				newpermission.setIsparent(1);
 				Mapper.updateByPrimaryKey(newpermission);
 			}
 		}

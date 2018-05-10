@@ -115,7 +115,7 @@ public class UsersServiceImpl implements UsersService{
 					com.zwh.stusys.entity.ScoreExample.Criteria criteria2 = example2.createCriteria();
 					criteria2.andSidEqualTo(slist.get(0).getSid());
 					int sflag = scorem.deleteByExample(example2);
-					if(sflag > 0) {
+					if(sflag >= 0) {
 						int stuflag = sm.deleteByPrimaryKey(slist.get(0).getId());
 						if(stuflag > 0) {
 							result = Mapper.deleteByPrimaryKey(id);
@@ -133,7 +133,7 @@ public class UsersServiceImpl implements UsersService{
 					com.zwh.stusys.entity.TeachExample.Criteria criteria2 = example2.createCriteria();
 					criteria2.andTidEqualTo(tlist.get(0).getTid());
 					int tflag = teachm.deleteByExample(example2);
-					if(tflag > 0) {
+					if(tflag >= 0) {
 						int teaflag = tm.deleteByPrimaryKey(tlist.get(0).getId());
 						if(teaflag > 0) {
 							result = Mapper.deleteByPrimaryKey(id);

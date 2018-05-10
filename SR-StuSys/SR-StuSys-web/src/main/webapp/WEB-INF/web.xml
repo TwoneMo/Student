@@ -36,14 +36,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- <filter>
+	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>com.zwh.stusys.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 <!-- 如果你不使用任何 profiles 或 mbeans 可以用这个解决 spring.liveBeansView.mbeanDomain报错-->
 	<context-param>
