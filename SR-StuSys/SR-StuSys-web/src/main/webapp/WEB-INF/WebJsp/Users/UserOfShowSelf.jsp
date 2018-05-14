@@ -46,7 +46,6 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<br><br><br>
 <div style="margin: auto; width: 200px;">
 	<c:if test="${myuser.rid=='002' }">
 	<form id="formadd" name="self" method="post" >
@@ -67,7 +66,7 @@ $(document).ready(function(){
   	</div>
   	<div class="form-group">
     <label for="classid">班级</label>
-    <input type="text" class="form-control" name="classid" value="${student.myclass.classid }" placeholder="Classid" readonly="readonly" style="width: 200px;color: black;">
+    <input type="hidden" class="form-control" name="classid" value="${student.myclass.classid }" placeholder="Classid" readonly="readonly" style="width: 200px;color: black;">
     <input type="text" class="form-control" id="classid"  value="${student.myclass.classname }" placeholder="Classid" readonly="readonly" style="width: 200px;color: black;">
   	</div>
   	<div class="form-group">

@@ -64,7 +64,10 @@ function createTableT(){
 			{data:'course.cname'},
 			{data:'myclass.classname'},
 			{data:'course.score'},
-			{data:'course.credit'}
+			{data:'course.credit'},
+			{data:'id',render:function(data,type,row){
+		        return "<a href='javascript:toScore("+data+");'>详情</a>"
+		    }}
 		]
 	})
 }
@@ -251,6 +254,27 @@ function CourseInfo(id){
 		}
 	})
 }
+
+function toScore(id){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/teach/toScore.do",
+		data:{
+			"id":id
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+			if(result=="<script>alert('权限不够，不能访问！')"){
+				alert("权限不够，不能访问！");
+			}else{
+				bootbox.dialog({
+					title:"成绩详情",
+				    message:result
+				});
+			}
+		}
+	})
+}
 </script>
 
 <body>
@@ -282,6 +306,7 @@ function CourseInfo(id){
         	<td>授课班级</td>
         	<td>课程总分</td>
         	<td>课程学分</td>
+        	<td>详情</td>
         </tr>
     </thead>
     <tbody>

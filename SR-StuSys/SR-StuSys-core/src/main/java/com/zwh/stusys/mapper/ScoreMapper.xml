@@ -5,13 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="sid" jdbcType="VARCHAR" property="sid" />
     <result column="courseid" jdbcType="VARCHAR" property="courseid" />
-    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
   </resultMap>
   <resultMap id="BaseResultMap2" type="com.zwh.stusys.entity.Score">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="sid" jdbcType="VARCHAR" property="sid" />
     <result column="courseid" jdbcType="VARCHAR" property="courseid" />
-    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
     <association property="student" javaType="com.zwh.stusys.entity.Student" column="sid" select="com.zwh.stusys.mapper.StudentMapper.selectByTrueKey"></association>
   	<association property="course" javaType="com.zwh.stusys.entity.Course" column="courseid" select="com.zwh.stusys.mapper.CourseMapper.selectByTrueKey"></association>
   </resultMap>
@@ -112,7 +112,7 @@
     </selectKey>
     insert into score (sid, courseid, score
       )
-    values (#{sid,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}
+    values (#{sid,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zwh.stusys.entity.Score">
@@ -139,7 +139,7 @@
         #{courseid,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
-        #{score,jdbcType=INTEGER},
+        #{score,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -175,6 +175,23 @@
   			and sid = #{sid}
   		</if>
   	</where>
+  </select>
+  
+  <select id="searchAllScoreBytid" parameterType="com.zwh.stusys.entity.Teach" resultMap="BaseResultMap2">
+  SELECT score.*
+  FROM score,teach,student
+  <where>
+  teach.classid = student.classid AND teach.courseid = score.courseid AND student.sid = score.sid
+  <if test="tid!=null and tid!=''">
+  	 and teach.tid = #{tid}
+  </if>
+  <if test="classid!=null and classid!='' and classid!=0">
+ 	 and teach.classid = #{classid}
+  </if>
+  <if test="courseid!=null and courseid!='' and courseid!=0">
+ 	 and teach.courseid = #{courseid}
+  </if>
+  </where>
   </select>
   
   <select id="searchAllScorePageBytid" parameterType="map" resultMap="BaseResultMap2">
@@ -227,7 +244,7 @@
         courseid = #{record.courseid,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null">
-        score = #{record.score,jdbcType=INTEGER},
+        score = #{record.score,jdbcType=DOUBLE},
       </if>
     </set>
     <if test="_parameter != null">
@@ -239,7 +256,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       sid = #{record.sid,jdbcType=VARCHAR},
       courseid = #{record.courseid,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=INTEGER}
+      score = #{record.score,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -254,7 +271,7 @@
         courseid = #{courseid,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
-        score = #{score,jdbcType=INTEGER},
+        score = #{score,jdbcType=DOUBLE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -263,7 +280,7 @@
     update score
     set sid = #{sid,jdbcType=VARCHAR},
       courseid = #{courseid,jdbcType=VARCHAR},
-      score = #{score,jdbcType=INTEGER}
+      score = #{score,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

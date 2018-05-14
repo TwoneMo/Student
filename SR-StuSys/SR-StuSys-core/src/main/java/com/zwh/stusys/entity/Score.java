@@ -7,7 +7,7 @@ public class Score {
 
     private String courseid;
 
-    private Integer score;
+    private Double score;
     
     private Course course;
     
@@ -37,11 +37,11 @@ public class Score {
         this.courseid = courseid == null ? null : courseid.trim();
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 
@@ -60,5 +60,12 @@ public class Score {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
+	@Override
+	public String toString() {
+		return "Score [id=" + id + ", sid=" + sid + ", courseid=" + courseid + ", score=" + score + ", course=" + course
+				+ ", student=" + student + "]";
+	}
+    
     
 }

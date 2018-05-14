@@ -1,5 +1,6 @@
 package com.zwh.stusys.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,35 @@ public class TeachControl {
 		// TODO Auto-generated method stub
 		List<Teach> list = ts.searchAllTeachPage(teach, start, length);
 		int searchCount = ts.searchCount(teach);
+		DataTables tables = new DataTables();
+		tables.setData(list);
+		tables.setRecordsFiltered(searchCount);
+		tables.setRecordsTotal(searchCount);
+		return tables;
+	}
+	
+	@RequestMapping("doShowClass_json.do")
+	@ResponseBody
+	private DataTables doShowClass_json(Teach teach, int start, int length) {
+		// TODO Auto-generated method stub
+		List<Teach> tlist = ts.searchAllTeachPage(teach, start, length);
+		List<Teach> list = new ArrayList<Teach>();
+		int flag = 0;
+		int searchCount = 0;
+		for(Teach t : tlist){
+			flag = 0;
+			Class classt = cs.searchByTrueId(t.getClassid());
+			for(Teach c : list){
+				if(classt.getClassname().equals(c.getMyclass().getClassname())){
+					flag = 1;
+				}
+			}
+			if(flag == 0){
+				list.add(t);
+				searchCount++;
+			}
+		}
+		
 		DataTables tables = new DataTables();
 		tables.setData(list);
 		tables.setRecordsFiltered(searchCount);
@@ -117,5 +147,13 @@ public class TeachControl {
 			ajaxResult.setMessage("教学信息删除失败");
 		}
 		return ajaxResult;
+	}
+	
+	@RequestMapping("toScore.do")
+	private String toScore(int id, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		Teach teach_score = ts.searchById(id);
+		request.setAttribute("teach_score", teach_score);
+		return "WebJsp/Score/ScoreOfInfo";
 	}
 }

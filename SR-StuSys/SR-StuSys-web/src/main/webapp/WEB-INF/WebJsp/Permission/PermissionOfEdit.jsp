@@ -63,9 +63,10 @@ $(document).ready(function(){
 </script>
 
 <body>
+<div style="margin: auto; width: 200px;">
 <form id="formedit_permission" name="permissionedit" method="post">
-	<input id="tId" type="text" value="${requestScope.tId }"><br>
-	<input class="form-control" id="id" name="id" type="text" value="${requestScope.permission.id }"><br>
+	<input id="tId" type="hidden" value="${requestScope.tId }"><br>
+	<input class="form-control" id="id" name="id" type="hidden" value="${requestScope.permission.id }"><br>
 	<div class="form-group">
     <label for="perPid_edit">权限编号</label>
     <input type="text" class="form-control" id="perPid_edit" name="pid" placeholder="Pid" value="${requestScope.permission.pid }" readonly="readonly"  style="width: 200px;color: black;">
@@ -93,5 +94,6 @@ $(document).ready(function(){
 	</div>
 	<br>
 </form>
+</div>
 </body>
 </html>

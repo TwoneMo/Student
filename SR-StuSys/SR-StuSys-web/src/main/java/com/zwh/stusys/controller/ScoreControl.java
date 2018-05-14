@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zwh.stusys.entity.Class;
 import com.zwh.stusys.entity.Course;
 import com.zwh.stusys.entity.Score;
 import com.zwh.stusys.entity.Student;
@@ -60,11 +61,42 @@ public class ScoreControl {
 			} else {
 				Teacher teacher = teas.searchByUid(myuser.getId());
 				request.setAttribute("other", teacher);
+				List<Teach> tlist = ts.searchTeachByTid(teacher.getTid());
+				List<Course> allcourse = cs.searchAllCourse();
+				List<Class> allclass = cls.searchAllClass();
 				if("003".equals(rid)) {
-					request.setAttribute("teach", ts.searchTeachByTid(teacher.getTid()));
+					List<Course> tcourse = new ArrayList<Course>();
+					List<Class> tclass = new ArrayList<Class>();
+					for(Course co : allcourse){
+						int flagco = 0;
+						for(Teach t : tlist){
+							if(co.getCname().equals(t.getCourse().getCname())){
+								flagco = 1;
+								break;
+							}
+						}
+						if(flagco == 1){
+							tcourse.add(co);
+						}
+					}
+					for(Class cl : allclass){
+						int flagcl = 0;
+						for(Teach t : tlist){
+							if(cl.getClassname().equals(t.getMyclass().getClassname())){
+								flagcl = 1;
+								break;
+							}
+						}
+						if(flagcl == 1){
+							tclass.add(cl);
+						}
+					}
+					
+					request.setAttribute("tcourse",tcourse );
+					request.setAttribute("tclass",tclass );
 				}else {
-					request.setAttribute("allcourse", cs.searchAllCourse());
-					request.setAttribute("allclass", cls.searchAllClass());					
+					request.setAttribute("allcourse", allcourse);
+					request.setAttribute("allclass", allclass);					
 				}
 			}
 		}
@@ -104,9 +136,18 @@ public class ScoreControl {
 		Teacher teacher = teas.searchByUid(myuser.getId());
 		List<Teach> teach = ts.searchTeachByTid(teacher.getTid());
 		List<Course> list = new ArrayList<Course>();
+		int flag = 0;
 		for(Teach t : teach){
+			flag = 0;
 			Course course = cs.searchByTrueId(t.getCourseid());
-			list.add(course);
+			for(Course c : list){
+				if(course.getCourseid().equals(c.getCourseid())){
+					flag = 1;
+				}
+			}
+			if(flag == 0){
+				list.add(course);
+			}
 		}
 		request.setAttribute("courses", list);
 		return "WebJsp/Score/ScoreOfAdd";
@@ -184,4 +225,65 @@ public class ScoreControl {
 		}
 		return ajaxResult;
 	}
+	
+	@RequestMapping("maxScore.do")
+	@ResponseBody
+	private AjaxResult maxScore(Teach teach){
+		AjaxResult ajaxResult = new AjaxResult();
+		Score maxScore = ss.maxScore(teach);
+		if(maxScore != null){
+			ajaxResult.setTag(1);
+			ajaxResult.setMessage("本课程该班级最高分者："+maxScore.getStudent().getSname()+",得分："+maxScore.getScore());
+		}else{
+			ajaxResult.setTag(0);
+			ajaxResult.setMessage("本课程该班级暂无成绩");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("minScore.do")
+	@ResponseBody
+	private AjaxResult minScore(Teach teach){
+		AjaxResult ajaxResult = new AjaxResult();
+		Score minScore = ss.minScore(teach);
+		if(minScore != null){
+			ajaxResult.setTag(1);
+			ajaxResult.setMessage("本课程该班级最低分者："+minScore.getStudent().getSname()+",得分："+minScore.getScore());
+		}else{
+			ajaxResult.setTag(0);
+			ajaxResult.setMessage("本课程该班级暂无成绩");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("avgScore.do")
+	@ResponseBody
+	private AjaxResult avgScore(Teach teach){
+		AjaxResult ajaxResult = new AjaxResult();
+		double avgScore = ss.avgScore(teach);
+		if(avgScore != 0){
+			ajaxResult.setTag(1);
+			ajaxResult.setMessage("本课程该班级平均分为："+String.format("%.2f",avgScore));
+		}else{
+			ajaxResult.setTag(0);
+			ajaxResult.setMessage("本课程该班级暂无成绩");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("passRate.do")
+	@ResponseBody
+	private AjaxResult passRate(Teach teach){
+		AjaxResult ajaxResult = new AjaxResult();
+		double passRate = ss.passRate(teach);
+		if(passRate != 0){
+			ajaxResult.setTag(1);
+			ajaxResult.setMessage("本课程该班级及格率为："+String.format("%.2f",(passRate*100))+"%");
+		}else{
+			ajaxResult.setTag(0);
+			ajaxResult.setMessage("本课程该班级暂无成绩或及格率为0%");
+		}
+		return ajaxResult;
+	}
+	
 }

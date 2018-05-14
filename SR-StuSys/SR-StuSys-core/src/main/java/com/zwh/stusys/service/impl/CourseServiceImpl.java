@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import com.zwh.stusys.entity.Course;
 import com.zwh.stusys.entity.CourseExample;
 import com.zwh.stusys.entity.CourseExample.Criteria;
+import com.zwh.stusys.entity.Score;
+import com.zwh.stusys.entity.ScoreExample;
 import com.zwh.stusys.entity.Teach;
 import com.zwh.stusys.entity.TeachExample;
 import com.zwh.stusys.mapper.CourseMapper;
+import com.zwh.stusys.mapper.ScoreMapper;
 import com.zwh.stusys.mapper.TeachMapper;
 import com.zwh.stusys.service.CourseService;
 
@@ -22,6 +25,9 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Autowired
 	private TeachMapper tm;
+	
+	@Autowired
+	private ScoreMapper sm;
 	
 	@Override
 	public List<Course> searchAllCourse() {
@@ -101,7 +107,20 @@ public class CourseServiceImpl implements CourseService {
 			if(teach_list != null && teach_list.size() != 0) {
 				int teach_result = tm.deleteByExample(example);
 				if(teach_result > 0) {
-					return Mapper.deleteByPrimaryKey(id);
+					ScoreExample example2 = new ScoreExample();
+					com.zwh.stusys.entity.ScoreExample.Criteria criteria2 = example2.createCriteria();
+					criteria2.andCourseidEqualTo(course.getCourseid());
+					List<Score> score_list = sm.selectByExample(example2);
+					if(score_list != null && score_list.size() != 0){
+						int score_result = sm.deleteByExample(example2);
+						if(score_result > 0){
+							return Mapper.deleteByPrimaryKey(id);
+						} else {
+							return -1;
+						}
+					}else{
+						return Mapper.deleteByPrimaryKey(id);
+					}
 				}else {
 					return -1;
 				}

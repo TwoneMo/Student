@@ -24,7 +24,7 @@ function createTableT(){
 		"aLengthMenu":[[5,10,15,20],["5条","10条","15条","20条"]],
 		serverSide:true,
 		ajax:{
-			url:"${pageContext.request.contextPath}/teach/doShowTeach_json.do",
+			url:"${pageContext.request.contextPath}/teach/doShowClass_json.do",
 			dataSrc:"data",
 			data:{
 				"tid":$("#class_show_tid").val()

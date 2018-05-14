@@ -11,30 +11,30 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#btn_add").click(function(){
-		if($("#username").val()==""){
+		if($("#username_add_user").val()==""){
 			alert("用户名称不能为空！");
 			return false;
 		}
-		if($("#password").val()==""){
+		if($("#password_add_user").val()==""){
 			alert("用户密码不能为空！");
 			return false;
 		}
-		if($("#rid").val()==""||$("#rid").val()=="0"){
+		if($("#rid_add_user").val()==""||$("#rid_add_user").val()=="0"){
 			alert("角色不能为空！");
 			return false;
 		}
 		$.ajax({
 			url:"${pageContext.request.contextPath }/users/doCreateAccount.do",
 			type:"post",
-			data:$("#formadd").serialize(),
+			data:$("#formadd_add_user").serialize(),
 			dataType:"json",
 			success:function(jsonResult){
 				if(jsonResult.tag==1){
-					if($("#rid").val()=='002'){
+					if($("#rid_add_user").val()=='002'){
 						$.ajax({
 							url:"${pageContext.request.contextPath }/students/toAdd.do",
 							type:"post",
-							data:{"username":$("#username").val()},
+							data:{"username":$("#username_add_user").val()},
 							dataType:"text",
 							success:function(result){
 								bootbox.dialog({
@@ -43,11 +43,11 @@ $(document).ready(function(){
 								});
 							}
 						})
-					}else if($("#rid").val()=='003'){
+					}else if($("#rid_add_user").val()=='003'){
 						$.ajax({
 							url:"${pageContext.request.contextPath }/teachers/toAdd.do",
 							type:"post",
-							data:{"username":$("#username").val()},
+							data:{"username":$("#username_add_user").val()},
 							dataType:"text",
 							success:function(result){
 								bootbox.dialog({
@@ -57,6 +57,7 @@ $(document).ready(function(){
 							}
 						})
 					}
+					datatable_users.draw(1);
 				}else{
 					alert(jsonResult.message);
 				}
@@ -67,18 +68,18 @@ $(document).ready(function(){
 </script>
 <body>
 <div style="margin: auto; width: 200px;">
-<form id="formadd" name="useradd" method="post" >
+<form id="formadd_add_user" name="useradd" method="post" >
 	<div class="form-group">
-    <label for="username">用户名称</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Username" style="width: 200px;">
+    <label for="username_add_user">用户名称</label>
+    <input type="text" class="form-control" id="username_add_user" name="username" placeholder="Username" style="width: 200px;">
   	</div>
   	<div class="form-group">
-    <label for="password">用户密码</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="width: 200px;">
+    <label for="password_add_user">用户密码</label>
+    <input type="password" class="form-control" id="password_add_user" name="password" placeholder="Password" style="width: 200px;">
   	</div>
   	<div class="form-group">
-  	<label for="rid">用户角色</label>
-	<select class="form-control"id="rid" name="rid" style="width:200px">
+  	<label for="rid_add_user">用户角色</label>
+	<select class="form-control"id="rid_add_user" name="rid" style="width:200px">
   		<option value="0">请选择</option>
 		<c:forEach items="${roles }" var="r">
 		<c:if test="${r.rid=='002'||r.rid=='003' }">

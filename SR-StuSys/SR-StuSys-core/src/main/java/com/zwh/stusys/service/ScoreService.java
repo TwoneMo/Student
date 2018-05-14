@@ -26,4 +26,11 @@ public interface ScoreService {
 	
 	public int searchCountByTid(Teach teach);
 	
+	public Score maxScore(Teach teach);
+	
+	public Score minScore(Teach teach);
+	
+	public double avgScore(Teach teach);
+	
+	public double passRate(Teach teach);
 }

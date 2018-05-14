@@ -236,4 +236,31 @@ public class UsersControl {
 		}
 		return ajaxResult;
 	}
+	
+	@RequestMapping("toAllotRole.do")
+	private String toAllotRole(int id, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		List<Roles> list = rs.searchAllRoles();
+		Users user_edit = us.searchById(id);
+		request.setAttribute("allroles", list);
+		request.setAttribute("user_edit", user_edit);
+		return "WebJsp/Users/UserOfRole";
+	}
+	
+	@RequestMapping("doAllotRole.do")
+	@ResponseBody
+	private AjaxResult doAllotRole(Users user) {
+		// TODO Auto-generated method stub
+		AjaxResult ajaxResult = new AjaxResult();
+		int result = 0;
+		result = us.updateUsers(user);
+		ajaxResult.setTag(result);
+		if(result > 0){
+			ajaxResult.setMessage("角色分配成功");
+		} else {//result==0
+			ajaxResult.setMessage("角色分配失败");
+		}
+		
+		return ajaxResult;
+	}
 }

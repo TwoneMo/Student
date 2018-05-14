@@ -224,14 +224,14 @@ function addScore(id){
 <form id="framsearch">
 	班级名称：<select id="score_classid">
 		<option value="0">请选择</option>
-		<c:forEach items="${teach }" var="t">
-			<option value="${t.myclass.classid}">${t.myclass.classname }</option>
+		<c:forEach items="${tclass }" var="cl">
+			<option value="${cl.classid}">${cl.classname }</option>
 		</c:forEach>
 	</select>
 	课程名称：<select id="score_courseid">
 		<option value="0">请选择</option>
-		<c:forEach items="${teach }" var="t">
-			<option value="${t.course.courseid}">${t.course.cname }</option>
+		<c:forEach items="${tcourse }" var="co">
+			<option value="${co.courseid}">${co.cname }</option>
 		</c:forEach>
 	</select>
 	<input id="btnselect_score_show" type="button" value="搜索">
@@ -251,6 +251,7 @@ function addScore(id){
     
     </tbody>
 </table>
+<a href='javascript:addScore("+data+");'>增加</a>
 </c:if>
 
 <c:if test="${myuser.rid=='001' || myuser.rid=='004' }">

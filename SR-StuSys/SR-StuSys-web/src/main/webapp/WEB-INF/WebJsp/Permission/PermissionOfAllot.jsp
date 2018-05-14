@@ -82,14 +82,12 @@
 <div class="content_wrap">
 	<div class="zTreeDemoBackground left">
 		<ul id="treeDemo2" class="ztree"></ul>
-		<div align="left" style="float:left">
-			<button type="button" class="btn btn-success" id="btn_getnodes" name="btn_getnodes" data-dismiss="modal">分配权限</button>
-		</div>
-		<br>
 		<input type="hidden" id="roleId" name="rid" value="${rid }">
 	</div>
 	<div class="right">
-	
+	<div align="left" style="float:left">
+		<button type="button" class="btn btn-success" id="btn_getnodes" name="btn_getnodes" data-dismiss="modal">分配权限</button>
+	</div>
 	</div>
 </div>
 </body>

@@ -12,7 +12,7 @@ $(document).ready(function(){
 	
 	$("#btn_edit").click(function(){
 		//console.log($("#password").val());
-		if($("#newpassword").val().trim()==$("#password").val().trim()){
+		if($("#newpassword").val().trim()==$("#password_edit").val().trim()){
 			$.ajax({
 				url:"${pageContext.request.contextPath }/users/doEditPassword.do",
 				type:"post",
@@ -52,8 +52,8 @@ $(document).ready(function(){
     <input type="password" class="form-control" id="newpassword" placeholder="NewPassword" style="width: 200px;">
   	</div>
   	<div class="form-group">
-    <label for="password">确认新密码</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="width: 200px;">
+    <label for="password_edit">确认新密码</label>
+    <input type="password" class="form-control" id="password_edit" name="password" placeholder="Password" style="width: 200px;">
   	</div>
   	<br />
 	<div align="left" style="float:left">

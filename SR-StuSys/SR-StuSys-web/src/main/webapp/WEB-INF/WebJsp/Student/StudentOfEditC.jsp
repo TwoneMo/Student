@@ -32,7 +32,7 @@ $(document).ready(function(){
 </script>
 <body>
 <form id="formedit_s_c" name="self" method="post" >
-	<input type="text" class="form-control" id="editc_id" name="id" value="${cstu.id }" style="width: 200px;color: black;">
+	<input type="hidden" class="form-control" id="editc_id" name="id" value="${cstu.id }" style="width: 200px;color: black;">
 	<div class="form-group">
     <label for="editc_sname">姓名</label>
     <input type="text" class="form-control" id="editc_sname" name="sname" value="${cstu.sname }" readonly="readonly" style="width: 200px;color: black;">

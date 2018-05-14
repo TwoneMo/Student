@@ -27,7 +27,8 @@ function createTableT(){
 			url:"${pageContext.request.contextPath}/students/doShowStudent_json.do",
 			dataSrc:"data",
 			data:{
-				"classid":$("#stu_classid").val()
+				"classid":$("#stu_classid").val(),
+				"sname":$("#StuName").val()
 			},
 			type:"post"
 		},
@@ -109,6 +110,9 @@ function createTableGM(){
 $(document).ready( function () {
 	var userrid = $("#userrid").val();
 	if(userrid=="003"){
+		$('#Stu_Show_btnselect').click(function(){
+			createTableT();
+		});
 		createTableT();
 	} else if (userrid=="004"){
 		$('#Stu_Show_btnselect').click(function(){
@@ -155,7 +159,6 @@ function delCStu(id){
 	    },
 	    callback: function (result) {
 	    	if(result){
-	    		alert(id);
 	    		$.ajax({
 	    			url:"${pageContext.request.contextPath}/students/doDelC.do",
 	    			data:{
@@ -229,6 +232,10 @@ function addCStu(id){
 <input type="hidden" id="stu_classid" value="${classid }">
 
 <c:if test="${myuser.rid=='003' }">
+<form id="framsearch">
+	学生名称：<input id="StuName" type="text" value="">
+	<input id="Stu_Show_btnselect" type="button" value="搜索">
+</form>
 <table id="table_id_example_student" class="display">
     <thead>
         <tr>

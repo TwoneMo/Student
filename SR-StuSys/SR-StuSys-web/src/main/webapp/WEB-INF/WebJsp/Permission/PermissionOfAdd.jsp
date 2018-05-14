@@ -77,7 +77,7 @@ $(document).ready(function(){
 <body>
 <div style="margin: auto; width: 200px;">
 <form id="formadd_permission" name="permissionadd" method="post">
-	<input id="tId" type="text" value="${requestScope.tId }"><br>
+	<input id="tId" type="hidden" value="${requestScope.tId }"><br>
 	<div class="form-group">
     <label for="perPid_add">权限编号</label>
     <input type="text" class="form-control" id="perPid_add" name="pid" placeholder="Pid" style="width: 200px;">

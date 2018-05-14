@@ -35,7 +35,7 @@ function createTableGM(){
 			{data:'username'},
 			{data:'role.rname'},
 			{data:'id',render:function(data,type,row){
-		        return "<a href='javascript:addUser("+data+");'>增加</a>    <a href='javascript:resetPW("+data+");'>初始化密码</a>    <a href='javascript:delUser("+data+");'>删除</a>"
+		        return "<a href='javascript:addUser("+data+");'>增加</a>    <a href='javascript:allotRole("+data+");'>分配角色</a>    <a href='javascript:resetPW("+data+");'>初始化密码</a>    <a href='javascript:delUser("+data+");'>删除</a>"
 		    }}
 		]
 	})
@@ -126,6 +126,23 @@ function resetPW(id){
 	    	}
 	    }
 	});
+}
+
+function allotRole(id){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/users/toAllotRole.do",
+		data:{
+			"id":id
+		},
+		type:"post",
+		dataType:"text",
+		success:function(result){
+			bootbox.dialog({
+				title:"分配角色",
+			    message:result
+			});
+		}
+	})
 }
 
 function addUser(id){

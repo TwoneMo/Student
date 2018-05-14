@@ -37,4 +37,6 @@ public interface ScoreMapper {
     List<Score> searchAllScorePageBytid(@Param("teach") Teach teach,@Param("start") int start,@Param("length") int length);
     
     int searchCountBytid(Teach teach);
+    
+    List<Score> searchAllScoreBytid(Teach teach);
 }

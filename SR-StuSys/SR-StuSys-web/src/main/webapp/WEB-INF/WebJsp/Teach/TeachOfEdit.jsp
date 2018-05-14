@@ -37,8 +37,8 @@ $(document).ready(function(){
 <body>
 <div style="margin: auto; width: 200px;">
 <form id="form_teach_edit" name="teachedit" method="post" >
-	<input type="text" class="form-control" name="id" value="${teach.id }" style="width: 200px;">
-    <input type="text" class="form-control" id="edit_courseid" name="courseid" value="${teach.courseid }" style="width: 200px;">
+	<input type="hidden" class="form-control" name="id" value="${teach.id }" style="width: 200px;">
+    <input type="hidden" class="form-control" id="edit_courseid" name="courseid" value="${teach.courseid }" style="width: 200px;">
   	<div class="form-group">
     <label for="edit_teach_classid">授课班级</label>
     <select class="form-control" id="edit_teach_classid" name="classid" style="width:200px">
